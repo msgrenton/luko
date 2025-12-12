@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LUCO Studio — Handmade Crypto Wall Panels</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TODO: replace favicon -->
+  <link rel="icon" href="/media/favicon.png" type="image/png">
+
+  <meta name="description" content="Handmade crypto wall panels that change color with the market. Bitcoin and Ethereum ambient indicators, laser-cut and hand-finished, reacting in real time. Crypto payments only.">
+
+  <style>
+    :root{
+      --bg:#05060A;
+      --card:#0D1017;
+      --soft:#141824;
+      --accent:#F7931A;      /* BTC orange */
+      --accent-2:#627EEA;    /* ETH blue */
+      --text:#E9EEF6;
+      --muted:#9BA4BB;
+      --border:#232838;
+      --danger:#FF6B6B;
+      --success:#3DCC7C;
+      --radius-lg:18px;
+      --radius-xl:26px;
+      --shadow:0 24px 70px rgba(0,0,0,.65);
+      --shadow-soft:0 18px 40px rgba(0,0,0,.45);
+      --transition:all .18s ease-out;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;
+      background:radial-gradient(circle at top,#141824 0,#05060A 55%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .container{
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      padding:24px 20px 64px;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:8px 0 24px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo-mark{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      background:conic-gradient(from 140deg,var(--accent),var(--accent-2),var(--accent));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 0 0 1px rgba(0,0,0,.6),0 0 40px rgba(0,0,0,.6);
+    }
+
+    .logo-mark span{
+      font-size:15px;
+      font-weight:700;
+      color:#05060A;
+    }
+
+    .logo-text{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+
+    .logo-text span:first-child{
+      font-weight:600;
+      letter-spacing:.16em;
+      font-size:12px;
+      text-transform:uppercase;
+      color:var(--text);
+    }
+
+    .logo-text span:last-child{
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .header-pill{
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(7,9,14,.85);
+      padding:6px 14px;
+      font-size:11px;
+      color:var(--muted);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      backdrop-filter:blur(16px);
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:radial-gradient(circle,var(--success),#1A3F2B);
+      box-shadow:0 0 10px rgba(61,204,124,.9);
+    }
+
+    main{
+      flex:1;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:32px;
+      align-items:center;
+      padding:12px 0 40px;
+    }
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(5,6,10,.85);
+      backdrop-filter:blur(16px);
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:14px;
+    }
+
+    .hero-kicker span.badge{
+      padding:2px 8px;
+      border-radius:999px;
+      background:rgba(247,147,26,.16);
+      color:var(--accent);
+      font-weight:500;
+      font-size:11px;
+    }
+
+    h1{
+      font-size:34px;
+      line-height:1.12;
+      letter-spacing:-.03em;
+      margin-bottom:12px;
+    }
+
+    @media (min-width:900px){
+      h1{
+        font-size:40px;
+      }
+    }
+
+    .hero-sub{
+      font-size:14px;
+      line-height:1.6;
+      color:var(--muted);
+      max-width:440px;
+      margin-bottom:20px;
+    }
+
+    .hero-highlights{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:24px;
+    }
+
+    .hero-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .hero-chip span.bullet{
+      width:18px;
+      height:18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.02);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .btn-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 20px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:500;
+      color:#05060A;
+      background:linear-gradient(135deg,var(--accent),#FFB347);
+      box-shadow:var(--shadow-soft);
+      transition:var(--transition);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 24px 60px rgba(0,0,0,.7);
+      filter:brightness(1.05);
+    }
+
+    .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(5,6,10,.4);
+      backdrop-filter:blur(16px);
+      font-size:12px;
+      color:var(--muted);
+      cursor:pointer;
+      text-decoration:none;
+      transition:var(--transition);
+      white-space:nowrap;
+    }
+
+    .btn-ghost:hover{
+      border-color:rgba(255,255,255,.3);
+      color:var(--text);
+    }
+
+    .hero-meta{
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .hero-meta strong{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .hero-media{
+      border-radius:var(--radius-xl);
+      border:1px solid rgba(255,255,255,.06);
+      background:radial-gradient(circle at top,#1D2335 0,#05060A 60%);
+      box-shadow:var(--shadow);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .media-placeholder{
+      width:100%;
+      aspect-ratio:4/3;
+      border-radius:var(--radius-lg);
+      border:1px dashed rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      color:var(--muted);
+      background:radial-gradient(circle at top,#141824 0,#05060A 70%);
+    }
+
+    .hero-tag{
+      position:absolute;
+      bottom:16px;
+      left:18px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(5,6,10,.86);
+      border:1px solid rgba(255,255,255,.1);
+      font-size:11px;
+      color:var(--muted);
+      backdrop-filter:blur(12px);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .hero-tag span.swatch{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--danger),var(--success));
+      box-shadow:0 0 18px rgba(255,107,107,.7);
+    }
+
+    .section{
+      padding:36px 0 10px;
+    }
+
+    .section-header{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:20px;
+    }
+
+    .section-title{
+      font-size:18px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+
+    .section-sub{
+      font-size:13px;
+      color:var(--muted);
+      max-width:420px;
+    }
+
+    .video-block{
+      border-radius:var(--radius-xl);
+      border:1px solid rgba(255,255,255,.08);
+      background:radial-gradient(circle at top,#141824 0,#05060A 70%);
+      padding:18px;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .video-frame{
+      width:100%;
+      aspect-ratio:16/9;
+      border-radius:var(--radius-lg);
+      border:1px dashed rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:12px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .play-badge{
+      position:absolute;
+      width:54px;
+      height:54px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.4);
+      background:rgba(0,0,0,.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter:blur(10px);
+      font-size:11px;
+    }
+
+    .play-badge span{
+      margin-left:2px;
+    }
+
+    .how-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .how-card{
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(7,9,15,.9);
+      padding:14px 14px 16px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .how-badge{
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      color:var(--text);
+      margin-bottom:10px;
+    }
+
+    .how-card h3{
+      font-size:13px;
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    .why-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .why-card{
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(7,9,15,.9);
+      padding:14px 14px 16px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .why-card h3{
+      font-size:13px;
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .product-card{
+      border-radius:var(--radius-xl);
+      border:1px solid rgba(255,255,255,.1);
+      background:radial-gradient(circle at top,#151B29 0,#05060A 65%);
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow-soft);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .product-tag{
+      position:absolute;
+      top:14px;
+      right:14px;
+      padding:4px 9px;
+      border-radius:999px;
+      font-size:10px;
+      background:rgba(5,6,10,.9);
+      border:1px solid rgba(255,255,255,.24);
+      color:var(--muted);
+      backdrop-filter:blur(16px);
+    }
+
+    .product-title{
+      font-size:16px;
+      margin-bottom:6px;
+    }
+
+    .product-sub{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
+    .product-media{
+      width:100%;
+      aspect-ratio:4/3;
+      border-radius:var(--radius-lg);
+      border:1px dashed rgba(255,255,255,.16);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:12px;
+      background:radial-gradient(circle at top,#141824 0,#05060A 70%);
+    }
+
+    .product-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 16px;
+      font-size:11px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    .product-meta strong{
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .product-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:6px;
+    }
+
+    .price{
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .price span{
+      font-size:11px;
+      font-weight:400;
+      color:var(--muted);
+      margin-left:4px;
+    }
+
+    .roadmap{
+      border-radius:var(--radius-xl);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(7,9,15,.9);
+      padding:18px 18px 14px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .roadmap-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .pill{
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(5,6,10,.9);
+      font-size:11px;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+      gap:20px;
+      align-items:center;
+    }
+
+    .about-media{
+      border-radius:var(--radius-xl);
+      border:1px dashed rgba(255,255,255,.14);
+      background:radial-gradient(circle at top,#151B29 0,#05060A 65%);
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      color:var(--muted);
+      min-height:200px;
+    }
+
+    .about-text h3{
+      font-size:16px;
+      margin-bottom:8px;
+    }
+
+    .about-text p{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+      line-height:1.6;
+    }
+
+    .about-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .about-tag{
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(5,6,10,.9);
+    }
+
+    .faq{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .faq-item{
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(7,9,15,.9);
+      padding:12px 13px 13px;
+    }
+
+    .faq-item h3{
+      font-size:12px;
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:16px 0 6px;
+      margin-top:28px;
+      font-size:11px;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+
+    .footer-links a{
+      text-decoration:none;
+      color:var(--muted);
+    }
+
+    .footer-links a:hover{
+      color:var(--text);
+    }
+
+    @media (max-width:860px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+
+      .hero-media{
+        order:-1;
+      }
+
+      .how-grid{
+        grid-template-columns:1fr;
+      }
+
+      .why-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .product-grid{
+        grid-template-columns:1fr;
+      }
+
+      .about{
+        grid-template-columns:1fr;
+      }
+
+      .faq{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:520px){
+      header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .why-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <header>
+        <div class="logo">
+          <div class="logo-mark"><span>L</span></div>
+          <div class="logo-text">
+            <span>LUCO STUDIO</span>
+            <span>Handmade crypto wall objects</span>
+          </div>
+        </div>
+        <div class="header-pill">
+          <span class="dot"></span>
+          <span>First batch: 10 units · Ships worldwide</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- HERO -->
+        <section class="hero">
+          <div>
+            <div class="hero-kicker">
+              <span class="badge">New · Limited batch</span>
+              <span>Bitcoin & Ethereum ambient indicators</span>
+            </div>
+            <h1>Handmade crypto wall panels that react to the market</h1>
+            <p class="hero-sub">
+              One-meter laser-cut panels with premium finish that switch from green to red as the price moves.
+              Real-time, Wi-Fi connected, crypto-only, built by a small studio that actually trades.
+            </p>
+
+            <div class="hero-highlights">
+              <div class="hero-chip">
+                <span class="bullet">Ø</span>
+                <span>Approx. 1 m diameter, solid material, Tikkurila finish</span>
+              </div>
+              <div class="hero-chip">
+                <span class="bullet">⊙</span>
+                <span>ESP32 inside, live price feed from exchanges</span>
+              </div>
+              <div class="hero-chip">
+                <span class="bullet">$</span>
+                <span>600 USD · Crypto only (BTC, ETH, USDT, USDC)</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#products" class="btn-primary">
+                <span>Pre-order a panel</span>
+              </a>
+              <a href="#how" class="btn-ghost">
+                <span>See how it works</span>
+              </a>
+            </div>
+
+            <div class="hero-meta">
+              <strong>Goal for this batch:</strong> 3–5 pieces in the wild before year end.
+            </div>
+          </div>
+
+          <div class="hero-media">
+            <!-- TODO: replace with hero photo / render -->
+            <div class="media-placeholder">
+              HERO IMAGE PLACEHOLDER  
+              (Bitcoin panel on a wall, glowing red/green)
+            </div>
+            <div class="hero-tag">
+              <span class="swatch"></span>
+              <span>Color flips as BTC/ETH move — no app open.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- DEMO -->
+        <section class="section" id="demo">
+          <div class="section-header">
+            <div class="section-title">Live reaction</div>
+            <div class="section-sub">
+              Short clips of the panel switching from green to red when the market turns.
+              No overlays, no music — just the light and the wall.
+            </div>
+          </div>
+
+          <div class="video-block">
+            <!-- TODO: embed real video -->
+            <div class="video-frame">
+              VIDEO PLACEHOLDER  
+              (Loop of panel reacting to a price candle)
+              <div class="play-badge">
+                <span>▶</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="section" id="how">
+          <div class="section-header">
+            <div class="section-title">How it works</div>
+            <div class="section-sub">
+              No cloud dashboard, no account creation, no mobile app zoo. Just your Wi-Fi,
+              one small web page on the controller, and a light on the wall.
+            </div>
+          </div>
+
+          <div class="how-grid">
+            <div class="how-card">
+              <div class="how-badge">1</div>
+              <h3>Power it and join its Wi-Fi</h3>
+              <p>
+                Plug the panel in. It exposes a small Wi-Fi network. Join it once from your phone or laptop
+                and open the built-in setup page.
+              </p>
+            </div>
+            <div class="how-card">
+              <div class="how-badge">2</div>
+              <h3>Set your Wi-Fi and symbol</h3>
+              <p>
+                Enter your home or office Wi-Fi credentials and choose what to track: BTCUSD, ETHUSD or another pair.
+                The ESP32 starts pulling prices from an exchange / API.
+              </p>
+            </div>
+            <div class="how-card">
+              <div class="how-badge">3</div>
+              <h3>Let the wall tell you first</h3>
+              <p>
+                When the price moves up — the glow goes green. When it goes down — it bleeds red.
+                Subtle enough for a living room, loud enough for a trading desk.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- WHY PEOPLE BUY -->
+        <section class="section">
+          <div class="section-header">
+            <div class="section-title">Why people buy it</div>
+            <div class="section-sub">
+              This is not a gadget. It is a physical anchor for an otherwise abstract market
+              — and an instant conversation starter for anyone who walks in.
+            </div>
+          </div>
+
+          <div class="why-grid">
+            <div class="why-card">
+              <h3>Ambient market signal</h3>
+              <p>
+                You already check the chart. Now the wall whispers first. No charts, no push alerts,
+                just background light shifting with the market.
+              </p>
+            </div>
+            <div class="why-card">
+              <h3>Office + home ready</h3>
+              <p>
+                Premium materials, smooth surface, clean geometry. Looks at home in a fund lobby,
+                a founder’s home office or a studio.
+              </p>
+            </div>
+            <div class="why-card">
+              <h3>Built by actual traders</h3>
+              <p>
+                This is not a dropship product. A small Russian workshop cuts, sands and paints each piece,
+                and the team actually follows the markets.
+              </p>
+            </div>
+            <div class="why-card">
+              <h3>Crypto-only, on purpose</h3>
+              <p>
+                Payments in BTC, ETH, USDT and USDC only. No cards. No PayPal.
+                This is part of the culture, not a mass retail SKU.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section class="section" id="products">
+          <div class="section-header">
+            <div class="section-title">First batch</div>
+            <div class="section-sub">
+              Batch one is intentionally small: 10 panels in total, built, tested and packed by the LUCO Studio team.
+              Each one is numbered and signed.
+            </div>
+          </div>
+
+          <div class="product-grid">
+            <!-- BTC PANEL -->
+            <article class="product-card">
+              <div class="product-tag">Batch #1 · 5 units</div>
+              <h2 class="product-title">Bitcoin Indicator Panel</h2>
+              <div class="product-sub">
+                One-meter Bitcoin logo with backlight that flips red/green with BTCUSD movement.
+                Designed as a permanent piece — not a seasonal gadget.
+              </div>
+
+              <!-- TODO: replace with real BTC panel shot -->
+              <div class="product-media">
+                IMAGE PLACEHOLDER  
+                (Front shot of the Bitcoin panel on a dark wall)
+              </div>
+
+              <div class="product-meta">
+                <div><strong>Diameter:</strong> ~100 cm</div>
+                <div><strong>Finish:</strong> Tikkurila, matte, hand-sanded</div>
+                <div><strong>Brain:</strong> ESP32, Wi-Fi</div>
+                <div><strong>Light:</strong> red / green LED backlight</div>
+              </div>
+
+              <div class="product-bottom">
+                <div class="price">
+                  600 USD
+                  <span>+ international shipping</span>
+                </div>
+                <a href="#preorder" class="btn-primary">
+                  <span>Pre-order with crypto</span>
+                </a>
+              </div>
+            </article>
+
+            <!-- ETH PANEL -->
+            <article class="product-card">
+              <div class="product-tag">Batch #1 · 5 units</div>
+              <h2 class="product-title">Ethereum Indicator Panel</h2>
+              <div class="product-sub">
+                Ethereum logo with the same real-time behavior: when ETHUSD bleeds, the wall does too.
+                Same materials, same dimensions, different symbol.
+              </div>
+
+              <!-- TODO: replace with real ETH panel shot -->
+              <div class="product-media">
+                IMAGE PLACEHOLDER  
+                (Front shot of the Ethereum panel with blue-leaning glow)
+              </div>
+
+              <div class="product-meta">
+                <div><strong>Diameter:</strong> ~100 cm</div>
+                <div><strong>Finish:</strong> Tikkurila, matte, hand-sanded</div>
+                <div><strong>Brain:</strong> ESP32, Wi-Fi</div>
+                <div><strong>Light:</strong> red / green LED backlight</div>
+              </div>
+
+              <div class="product-bottom">
+                <div class="price">
+                  600 USD
+                  <span>+ international shipping</span>
+                </div>
+                <a href="#preorder" class="btn-ghost">
+                  <span>Reserve an ETH panel</span>
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ROADMAP -->
+        <section class="section" id="roadmap">
+          <div class="section-header">
+            <div class="section-title">What we track next</div>
+            <div class="section-sub">
+              The logic does not care if it is BTC, ETH or something else. It only needs a stream of numbers.
+              The rest is shape, light and story.
+            </div>
+          </div>
+
+          <div class="roadmap">
+            <p>
+              After the Bitcoin and Ethereum panels, we are exploring a small series of other “watch-objects”:
+            </p>
+            <div class="roadmap-list">
+              <div class="pill">S&P 500 index panel</div>
+              <div class="pill">Gold price indicator</div>
+              <div class="pill">Fear &amp; Greed meter</div>
+              <div class="pill">“Up Only / Down Bad” abstract arrow</div>
+              <div class="pill">AQI / air-quality wall piece</div>
+              <div class="pill">UV index panel for beach cities</div>
+            </div>
+            <p style="margin-top:10px;">
+              Batch one buyers will be the first to see and vote on future designs.
+            </p>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="section" id="about">
+          <div class="section-header">
+            <div class="section-title">The studio</div>
+            <div class="section-sub">
+              Small team, one workshop, no investors, no warehouse. Just people who like building physical objects
+              for a very online market.
+            </div>
+          </div>
+
+          <div class="about">
+            <!-- TODO: replace with real workshop / team photo -->
+            <div class="about-media">
+              WORKSHOP / TEAM PHOTO PLACEHOLDER  
+              (The crew, the laser cutter, and panels in progress)
+            </div>
+            <div class="about-text">
+              <h3>Laser, paint, solder, repeat.</h3>
+              <p>
+                LUCO Studio is a laser-cutting and finishing workshop based in Russia. The panels are cut,
+                sanded and painted by a small team that actually enjoys standing in the dust and noise.
+              </p>
+              <p>
+                We build these objects the same way we’d build them for ourselves: heavy, over-finished and a bit obsessive.
+                Every batch is small, and every panel can be traced to a person who cut it and someone who wired it.
+              </p>
+              <div class="about-tags">
+                <div class="about-tag">Laser-cut interiors since [YEAR]</div>
+                <div class="about-tag">Panels finished with Tikkurila paints</div>
+                <div class="about-tag">Crypto-only sales, by design</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PREORDER / FAQ -->
+        <section class="section" id="preorder">
+          <div class="section-header">
+            <div class="section-title">Pre-order details</div>
+            <div class="section-sub">
+              Batch one is a live experiment. If you want a panel from the first ten,
+              read this part and then reach out.
+            </div>
+          </div>
+
+          <div class="faq">
+            <div class="faq-item">
+              <h3>How do I pre-order?</h3>
+              <p>
+                Use the form below (or email) with your country and which panel you want (BTC or ETH).
+                We reply with an invoice in crypto, estimated shipping and a slot in the batch.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>What do you accept?</h3>
+              <p>
+                Payments are processed via Plisio and taken in BTC, ETH, USDT and USDC.
+                No credit cards, no bank wires for this batch.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Shipping and duties</h3>
+              <p>
+                We ship worldwide from Russia. Shipping cost and timing depend on your country.
+                Import duties and taxes are handled on your side, as with any art object.
+              </p>
+            </div>
+            <div class="faq-item">
+              <h3>Lead time and returns</h3>
+              <p>
+                For batch one, panels are built to order with a lead time of several weeks.
+                If the panel arrives damaged, we either repair, replace, or refund — case by case.
+              </p>
+            </div>
+          </div>
+
+          <!-- TODO: replace with real form / integration -->
+          <div style="margin-top:18px;border-radius:16px;border:1px dashed rgba(255,255,255,.16);padding:14px 14px 16px;font-size:12px;color:var(--muted);background:rgba(7,9,15,.9);">
+            PRE-ORDER FORM PLACEHOLDER  
+            (Contact form or link to your preferred channel: email, Telegram, etc.)
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>© <span id="year"></span> LUCO Studio · lukostudio.shop</div>
+        <div class="footer-links">
+          <a href="#demo">Demo</a>
+          <a href="#products">Panels</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="#about">Studio</a>
+          <a href="#preorder">Pre-order</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
