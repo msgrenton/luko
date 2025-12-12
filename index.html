@@ -3,277 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Indicator Panel | Premium Crypto Art</title>
-    <meta name="description" content="Handmade 1-meter Bitcoin wall panel. Visualizes BTC price action in real-time.">
+    <title>Bitcoin Indicator Panel | Luko Studio</title>
+    <meta name="description" content="Handmade 1-meter Bitcoin wall panel. Visualizes BTC price action in real-time. Designed by Luko Studio.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        /* RESET & BASE */
+        /* --- RESET & VARIABLES --- */
         :root {
-            --bg-color: #0a0a0a;
-            --surface-color: #161616;
-            --text-color: #e0e0e0;
-            --accent-gold: #D4AF37;
-            --accent-green: #00ff41;
-            --accent-red: #ff3b30;
-            --border-color: #333;
-            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --bg-dark: #050505;
+            --bg-surface: #0a0a0a;
+            --bg-card: #111;
+            
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            
+            /* Monochrome Palette */
+            --accent-white: #ffffff;
+            --accent-grey: #333333;
+            
+            /* Status Colors (Subdued) */
+            --success: #00ff41;
+            --error: #ff3b30;
+            
+            --border-thin: 1px solid rgba(255, 255, 255, 0.1);
+            --border-active: 1px solid #ffffff;
+            
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
             line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3 { color: #fff; line-height: 1.2; margin-bottom: 1rem; }
-        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -1px; }
-        h2 { font-size: 2rem; font-weight: 600; text-align: center; margin-bottom: 2rem; }
-        p { margin-bottom: 1.5rem; color: #aaa; }
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 { 
+            font-family: var(--font-head); 
+            color: var(--text-main); 
+            line-height: 1.1; 
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+        
+        h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
 
-        section { padding: 4rem 1.5rem; border-bottom: 1px solid var(--border-color); }
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        /* BUTTONS */
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border-radius: 4px;
+        .studio-kicker {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
             font-weight: 600;
+        }
+
+        h2 { font-size: 2rem; margin-bottom: 3rem; text-align: center; font-weight: 600; letter-spacing: -1px; }
+        h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem; letter-spacing: 0.5px; }
+        p { margin-bottom: 1.5rem; color: var(--text-muted); font-weight: 300; font-size: 0.95rem; }
+        
+        .subhead { font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem auto; color: #999; }
+
+        /* --- LAYOUT --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+        section { padding: 8rem 0; border-bottom: var(--border-thin); position: relative; }
+
+        /* --- BUTTONS (Industrial) --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.5rem;
+            border-radius: 0; /* Square corners */
+            font-family: var(--font-head);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             text-decoration: none;
             transition: all 0.2s ease;
             cursor: pointer;
-            border: none;
-            text-align: center;
+            border: 1px solid transparent;
+            font-size: 0.8rem;
         }
+        
         .btn-primary {
-            background-color: var(--accent-gold);
+            background: var(--accent-white);
             color: #000;
-            width: 100%;
-            font-size: 1.1rem;
         }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--text-color);
-            color: var(--text-color);
-            margin-top: 1rem;
-            width: 100%;
+        .btn-primary:hover {
+            background: #e0e0e0;
+            transform: translateY(-1px);
         }
-        .btn-secondary:hover { background-color: rgba(255,255,255,0.1); }
 
-        /* PLACEHOLDERS */
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* --- PLACEHOLDERS (Technical) --- */
         .placeholder {
-            background-color: #222;
+            background-color: #0f0f0f;
+            /* Technical grid pattern */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #555;
-            font-weight: bold;
+            color: #444;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border: 1px dashed #444;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+            font-size: 0.7rem;
+            border: var(--border-thin);
             position: relative;
             overflow: hidden;
         }
-        .placeholder::after {
-            content: attr(data-label);
+        .placeholder::after { content: attr(data-label); z-index: 1; text-align: center; padding: 1rem; }
+        
+        /* --- SECTION: HERO --- */
+        .hero { 
+            text-align: center; 
+            padding-top: 10rem; 
+            padding-bottom: 6rem; 
+        }
+        .hero-price { 
+            font-family: var(--font-body);
+            font-size: 1.2rem; 
+            color: #fff; 
+            display: block; 
+            margin-bottom: 2rem; 
+            font-weight: 400;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .hero-img { 
+            width: 100%; 
+            height: 60vh; 
+            max-height: 600px; 
+            margin-top: 4rem; 
+            border: var(--border-thin);
         }
 
-        /* HERO SECTION */
-        .hero { text-align: center; padding-top: 6rem; }
-        .hero h1 span { color: var(--accent-gold); }
-        .hero-price { font-size: 1.5rem; color: #fff; margin-bottom: 2rem; display: block; }
-        .hero-img { width: 100%; height: 300px; margin-top: 2rem; }
-
-        /* VARIANTS */
+        /* Variant Selector (Minimal) */
         .variant-selector {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            display: inline-flex;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2.5rem;
         }
         .variant-opt {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
             cursor: pointer;
             transition: 0.2s;
+            color: #555;
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid transparent;
         }
+        .variant-opt:hover { color: #aaa; }
         .variant-opt.active {
-            border-color: var(--accent-gold);
-            background-color: rgba(212, 175, 55, 0.1);
-            color: var(--accent-gold);
+            color: #fff;
+            border-bottom: 2px solid #fff;
         }
 
-        /* LIVE DEMO */
-        .demo-video { width: 100%; height: 400px; }
-
-        /* HOW IT WORKS */
-        .steps { display: grid; gap: 2rem; }
-        .step { background: var(--surface-color); padding: 2rem; border-radius: 8px; }
-        .step-num { color: var(--accent-gold); font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; display: block; }
-        .setup-ui-img { width: 100%; height: 250px; margin-top: 2rem; }
-
-        /* GRID LAYOUTS */
-        .features-grid { 
-            display: grid; 
-            grid-template-columns: 1fr; 
-            gap: 2rem; 
+        /* --- DEMO --- */
+        .demo-video {
+            width: 100%;
+            height: 500px;
+            border: var(--border-thin);
         }
-        .feature-card { border-left: 2px solid var(--accent-gold); padding-left: 1rem; }
-        .feature-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; }
 
-        /* DETAILS */
-        .details-img { width: 100%; height: 350px; }
-        .specs-list { list-style: none; text-align: left; margin-top: 2rem; display: inline-block; }
-        .specs-list li { margin-bottom: 0.5rem; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
-        .specs-list span { color: #fff; font-weight: bold; margin-right: 0.5rem; }
+        /* --- HOW IT WORKS (Minimal Cards) --- */
+        .how-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px; /* Gap for border effect */
+            background: #222; /* Border color */
+            border: 1px solid #222;
+            margin-top: 3rem;
+        }
+        .how-step {
+            background: var(--bg-surface);
+            padding: 3rem 2rem;
+            position: relative;
+        }
+        .step-num {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: #444;
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .setup-img { width: 100%; height: 250px; margin-top: 2rem; border: var(--border-thin); }
 
-        /* CAROUSEL */
+        /* --- FEATURES (Split) --- */
+        .feature-split {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+        }
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .feature-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+        .feature-content h3 { color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- CAROUSEL (Clean) --- */
+        .carousel-wrapper {
+            margin-top: 3rem;
+            border: var(--border-thin);
+        }
         .carousel {
             position: relative;
             width: 100%;
-            height: 350px;
+            height: 500px;
             overflow: hidden;
-            border-radius: 8px;
-            background: #111;
+            background: #000;
         }
         .carousel-track {
             display: flex;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             height: 100%;
             width: 100%;
         }
         .carousel-slide {
             min-width: 100%;
             height: 100%;
-            margin-bottom: 0; /* Override generic placeholder margin */
-            border: 1px dashed #333;
-            border-radius: 0;
-            background-color: #1a1a1a;
+            border: none;
+            background-color: #080808;
         }
-        .carousel-btn {
+        .carousel-nav {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.6);
-            color: var(--accent-gold);
-            border: 1px solid var(--accent-gold);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            border-top: 1px solid #222;
+            border-left: 1px solid #222;
+            background: #000;
+        }
+        .nav-btn {
+            background: #000;
+            border: none;
+            color: #fff;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-            user-select: none;
-        }
-        .carousel-btn:hover {
-            background: var(--accent-gold);
-            color: #000;
-        }
-        .carousel-btn:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-        .carousel-btn.prev { left: 1rem; }
-        .carousel-btn.next { right: 1rem; }
-
-        .carousel-dots {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.6rem;
-            z-index: 10;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: 0.2s;
+            font-family: monospace;
+            font-size: 1.2rem;
         }
-        .dot.active {
-            background: var(--accent-gold);
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        .nav-btn:first-child { border-right: 1px solid #222; }
+        .nav-btn:hover { background: #fff; color: #000; }
+
+        /* --- ORDER FORM (Monolith) --- */
+        .order-section {
+            background: #080808;
+            padding: 8rem 0;
+        }
+        .order-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-surface);
+            border: var(--border-thin);
+            padding: 3rem;
         }
 
-        /* WORKSHOP */
-        .workshop-img { width: 100%; height: 300px; }
-
-        /* ORDER FORM */
-        .order-section { background-color: var(--surface-color); }
-        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-group { margin-bottom: 2rem; text-align: left; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         
-        .form-row { display: flex; gap: 1rem; }
-        .form-row .form-group { flex: 1; }
-        
-        @media (max-width: 500px) {
-            .form-row { flex-direction: column; gap: 0; }
+        label {
+            display: block; 
+            margin-bottom: 0.8rem; 
+            color: #666; 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            font-weight: 600;
         }
-
-        .form-group label { display: block; margin-bottom: 0.5rem; color: #fff; font-size: 0.9rem; }
-        .form-group input, .form-group select, .form-group textarea {
+        input, select, textarea {
             width: 100%;
-            padding: 1rem;
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            padding: 0.8rem 0;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
             color: #fff;
+            font-family: var(--font-body);
             font-size: 1rem;
+            transition: 0.2s;
+            border-radius: 0;
         }
-        .form-group input:focus, .form-group select:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-bottom-color: #fff;
         }
-        .promo-status { font-size: 0.85rem; margin-top: 0.5rem; min-height: 1.2em; }
-        .promo-success { color: var(--accent-green); }
-        .promo-error { color: var(--accent-red); }
+        input::placeholder, textarea::placeholder { color: #333; }
 
-        /* FAQ */
-        .faq-item { border-bottom: 1px solid #333; padding: 1.5rem 0; }
-        .faq-question { color: #fff; font-weight: bold; margin-bottom: 0.5rem; }
+        .promo-status { font-size: 0.8rem; margin-top: 0.5rem; height: 1.2em; letter-spacing: 0.5px; }
+        .promo-success { color: #fff; }
+        .promo-error { color: var(--error); }
 
-        /* CUSTOM */
-        .custom-img { width: 100%; height: 200px; }
-
-        /* FOOTER */
-        footer { padding: 4rem 1.5rem; text-align: center; color: #666; font-size: 0.9rem; }
-
-        /* DESKTOP MEDIA QUERIES */
-        @media (min-width: 768px) {
-            h1 { font-size: 4rem; }
-            .features-grid { grid-template-columns: repeat(3, 1fr); }
-            .steps { grid-template-columns: repeat(3, 1fr); }
-            .btn { width: auto; display: inline-block; min-width: 200px; }
-            .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        }
-
-        /* UTILS */
-        .hidden { display: none; }
-        .text-center { text-align: center; }
-        .mb-1 { margin-bottom: 1rem; }
+        /* --- FAQ --- */
+        .faq-grid { display: grid; gap: 3rem; max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #1a1a1a; padding-bottom: 2rem; }
+        .faq-q { color: #fff; font-family: var(--font-head); margin-bottom: 0.8rem; font-weight: 600; font-size: 1rem; }
         
-        /* LOADING OVERLAY */
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-top: var(--border-thin);
+            color: #444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: #000;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (min-width: 768px) {
+            h1 { font-size: 4.5rem; }
+            .how-grid { grid-template-columns: repeat(3, 1fr); }
+            .feature-row { grid-template-columns: 1fr 1fr; }
+            .feature-row.reverse { direction: rtl; }
+            .feature-row.reverse .feature-content { direction: ltr; }
+        }
+
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; gap: 2rem; }
+            section { padding: 5rem 0; }
+            h1 { font-size: 2.5rem; }
+            .order-container { padding: 1.5rem; }
+        }
+
+        /* --- LOADER --- */
         #loading-overlay {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.9); z-index: 1000;
+            background: #000; z-index: 2000;
             display: none; justify-content: center; align-items: center; flex-direction: column;
         }
         .spinner {
-            width: 40px; height: 40px; border: 4px solid #333;
-            border-top: 4px solid var(--accent-gold); border-radius: 50%;
-            animation: spin 1s linear infinite; margin-bottom: 1rem;
+            width: 40px; height: 40px; 
+            border: 2px solid #333;
+            border-top: 2px solid #fff; 
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite; margin-bottom: 2rem;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
@@ -282,289 +388,279 @@
 
     <!-- HERO -->
     <section class="hero container">
-        <h1>The Bitcoin <br> <span>Indicator Panel</span></h1>
-        <p>A handmade 1-meter statement piece for the crypto native.</p>
-        <span class="hero-price">600 USDT</span>
+        <span class="studio-kicker">Luko Studio Presents</span>
+        <h1>The Bitcoin <br> Indicator Panel</h1>
+        <p class="subhead">A handmade kinetic sculpture. Visualizing market sentiment in real-time.</p>
+        
+        <span class="hero-price">400 USDT</span>
 
         <div class="variant-selector" id="hero-variant-selector">
             <div class="variant-opt active" data-value="Black Edition">Black Edition</div>
             <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
         </div>
+        
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+            <button class="btn btn-primary" onclick="scrollToOrder()">Secure Allocation</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">View Demo</button>
+        </div>
 
-        <button class="btn btn-primary" onclick="scrollToOrder()">Order Now</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">How it works</button>
-
-        <div class="placeholder hero-img" data-label="HERO IMAGE: Panel on modern office wall"></div>
+        <div class="placeholder hero-img" data-label="HERO PHOTOGRAPHY: Matte black panel on concrete wall"></div>
     </section>
 
     <!-- DEMO -->
-    <section id="demo" class="container text-center">
-        <h2>Live Market Reaction</h2>
-        <p>Experience the pulse of the market. The panel shifts between deep red and vibrant green instantaneously as BTC moves.</p>
-        <div class="placeholder demo-video" data-label="VIDEO: Panel flipping red/green with chart overlay"></div>
+    <section id="demo" style="background: #0a0a0a;">
+        <div class="container text-center">
+            <h2>Live Reaction</h2>
+            <p class="subhead">No screens. No noise. Pure signal. The panel breathes with the market, shifting instantly from red to green.</p>
+            <div class="placeholder demo-video" data-label="VIDEO LOOP: Color shifting in monochrome environment"></div>
+        </div>
     </section>
 
-    <!-- HOW IT WORKS -->
+    <!-- SETUP -->
     <section id="how-it-works" class="container">
-        <h2>Zero Friction Setup</h2>
-        <div class="steps">
-            <div class="step">
-                <span class="step-num">01</span>
-                <h3>Power Up</h3>
-                <p>Mount the panel, plug it into any standard outlet. The ring will pulse white indicating setup mode.</p>
+        <h2>Process</h2>
+        <div class="how-grid">
+            <div class="how-step">
+                <span class="step-num">01 / POWER</span>
+                <h3>Initialize</h3>
+                <p>Mount the panel. Plug into any standard outlet (110V/220V). The aura ring pulses white.</p>
             </div>
-            <div class="step">
-                <span class="step-num">02</span>
-                <h3>Connect Wi-Fi</h3>
-                <p>Join the "BTC-PANEL" network on your phone. A captive portal opens automatically.</p>
+            <div class="how-step">
+                <span class="step-num">02 / CONNECT</span>
+                <h3>Network</h3>
+                <p>Join the "BTC-PANEL" Wi-Fi network. A minimal captive portal appears on your device.</p>
             </div>
-            <div class="step">
-                <span class="step-num">03</span>
-                <h3>Watch It Live</h3>
-                <p>Enter your home Wi-Fi credentials. The panel connects to the BTC/USD feed instantly.</p>
-            </div>
-        </div>
-        <div class="placeholder setup-ui-img" data-label="UI MOCKUP: Simple Wi-Fi Input Screen"></div>
-    </section>
-
-    <!-- BENEFITS -->
-    <section id="why-buy" class="container">
-        <h2>Why Own This?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Ambient Signal</h3>
-                <p>Stop refreshing charts. Know the market sentiment with a single glance at your wall.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Statement Piece</h3>
-                <p>Minimalist design that fits high-end offices and modern living rooms.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Handcrafted</h3>
-                <p>Built in small batches. Not mass-produced plastic.</p>
+            <div class="how-step">
+                <span class="step-num">03 / SYNC</span>
+                <h3>Live</h3>
+                <p>Enter credentials. The panel locks onto the exchange WebSocket feed. Latency &lt; 200ms.</p>
             </div>
         </div>
     </section>
 
-    <!-- DETAILS -->
-    <section id="details" class="container">
-        <div class="split-section">
-            <div>
-                <h2>Technical Specifications</h2>
-                <ul class="specs-list">
-                    <li><span>Diameter:</span> 100cm (~39.4 inches)</li>
-                    <li><span>Materials:</span> Matte Composite & Acrylic</li>
-                    <li><span>Controller:</span> ESP32 with Wi-Fi module</li>
-                    <li><span>Lighting:</span> High-density Addressable LEDs</li>
-                    <li><span>Power:</span> 110V/220V Universal Adapter</li>
-                    <li><span>Data Source:</span> Direct Exchange WebSocket</li>
-                </ul>
+    <!-- FEATURES -->
+    <section id="features" class="container">
+        <div class="feature-split">
+            <!-- Row 1 -->
+            <div class="feature-row">
+                <div class="placeholder feature-img" data-label="LIFESTYLE: Minimalist Studio Setting"></div>
+                <div class="feature-content">
+                    <h3>Ambient Intelligence</h3>
+                    <p>Stop refreshing CoinGecko. Understand market direction with a peripheral glance. Designed to be a presence, not a distraction.</p>
+                </div>
             </div>
-            
-            <!-- CAROUSEL -->
+            <!-- Row 2 -->
+            <div class="feature-row reverse">
+                <div class="placeholder feature-img" data-label="MACRO: Matte Composite Texture"></div>
+                <div class="feature-content">
+                    <h3>Industrial Craft</h3>
+                    <p>Built in small batches at Luko Studio. Composite matte finish, industrial-grade acrylics, and hand-soldered ESP32 logic boards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECS -->
+    <section id="specs" class="container">
+        <h2>Specifications</h2>
+        <div class="carousel-wrapper">
             <div class="carousel" id="tech-carousel">
                 <div class="carousel-track">
-                    <div class="placeholder carousel-slide" data-label="IMAGE: Close up of smooth finish"></div>
-                    <div class="placeholder carousel-slide" data-label="IMAGE: Side profile & mounting"></div>
-                    <div class="placeholder carousel-slide" data-label="IMAGE: LED diffusers macro shot"></div>
-                    <div class="placeholder carousel-slide" data-label="IMAGE: ESP32 Controller Internal"></div>
+                    <div class="placeholder carousel-slide" data-label="100cm Diameter Scale"></div>
+                    <div class="placeholder carousel-slide" data-label="144/m LED Density Macro"></div>
+                    <div class="placeholder carousel-slide" data-label="Slim Profile Side View"></div>
+                    <div class="placeholder carousel-slide" data-label="Internal Logic Board"></div>
                 </div>
-                <button class="carousel-btn prev" aria-label="Previous">&lt;</button>
-                <button class="carousel-btn next" aria-label="Next">&gt;</button>
-                <div class="carousel-dots"></div>
+                <div class="carousel-nav">
+                    <button class="nav-btn prev" aria-label="Previous">&lt;</button>
+                    <button class="nav-btn next" aria-label="Next">&gt;</button>
+                </div>
             </div>
-
+        </div>
+        <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem; font-family: monospace;">
+            DIA: 1000MM • WIFI: 2.4GHZ • INPUT: 5V DC • MOUNT: VESA COMPATIBLE
         </div>
     </section>
 
-    <!-- CRAFT -->
-    <section id="workshop" class="container">
-        <h2>From the Workshop</h2>
-        <p>Every panel is assembled, painted, and coded by hand. We prioritize build quality over speed.</p>
-        <div class="placeholder workshop-img" data-label="IMAGE: Workshop bench with soldering iron"></div>
-    </section>
-
-    <!-- ORDER FORM -->
+    <!-- ORDER -->
     <section id="order" class="order-section">
-        <div class="container" style="max-width: 600px;">
-            <h2>Secure Your Panel</h2>
-            <p class="text-center">Current lead time: 2 weeks. Payment via Plisio (USDT, BTC, ETH).</p>
+        <div class="container">
+            <h2 style="margin-bottom: 4rem;">Acquisition</h2>
             
-            <form id="orderForm">
-                <div class="form-group">
-                    <label>Edition</label>
-                    <div class="variant-selector" style="justify-content: flex-start;">
-                        <div class="variant-opt active" onclick="selectFormVariant('Black Edition', this)">Black Edition</div>
-                        <div class="variant-opt" onclick="selectFormVariant('Gold Edition', this)">Gold Edition</div>
-                    </div>
-                    <input type="hidden" name="variant" id="inputVariant" value="Black Edition">
-                </div>
-
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Satoshi Nakamoto">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="you@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="address_line1">Street Address</label>
-                    <input type="text" id="address_line1" name="address_line1" required placeholder="123 Bitcoin Blvd">
-                </div>
-                
-                <div class="form-group">
-                    <label for="address_line2">Apartment, Suite, etc. (Optional)</label>
-                    <input type="text" id="address_line2" name="address_line2" placeholder="Unit 42">
-                </div>
-
-                <div class="form-row">
+            <div class="order-container">
+                <form id="orderForm">
                     <div class="form-group">
-                        <label for="city">City</label>
-                        <input type="text" id="city" name="city" required placeholder="New York">
+                        <label>Variant</label>
+                        <div class="variant-selector" style="width: 100%; display: flex;">
+                            <div class="variant-opt active" data-value="Black Edition" style="margin-right: 2rem;">Black Edition</div>
+                            <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
+                        </div>
+                        <input type="hidden" name="variant" id="inputVariant" value="Black Edition">
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="name@domain.com">
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="state">State / Province</label>
-                        <input type="text" id="state" name="state" required placeholder="NY">
+                        <label for="address_line1">Address</label>
+                        <input type="text" id="address_line1" name="address_line1" required placeholder="Street Address">
                     </div>
-                </div>
-
-                <div class="form-row">
+                    
                     <div class="form-group">
-                        <label for="zip">ZIP / Postal Code</label>
-                        <input type="text" id="zip" name="zip" required placeholder="10001">
+                        <label for="address_line2">Unit / Apt</label>
+                        <input type="text" id="address_line2" name="address_line2" placeholder="Optional">
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State / Region</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">Postal Code</label>
+                            <input type="text" id="zip" name="zip" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" id="country" name="country" required>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" id="country" name="country" required placeholder="USA">
+                        <label for="promo">Access Code</label>
+                        <input type="text" id="promo" name="promo" placeholder="Enter Promo">
+                        <div class="promo-status" id="promoStatus"></div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="promo">Promo Code (Optional)</label>
-                    <input type="text" id="promo" name="promo" placeholder="LUCO10">
-                    <div class="promo-status" id="promoStatus"></div>
-                </div>
+                    <div class="form-group">
+                        <label for="note">Notes</label>
+                        <textarea id="note" name="note" rows="2" placeholder="Special delivery instructions"></textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="note">Custom Note / Delivery Instructions (Optional)</label>
-                    <textarea id="note" name="note" rows="3" placeholder="Gate code, specific courier preference, etc."></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Proceed to Crypto Checkout</button>
-            </form>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem;">Proceed to Crypto Payment</button>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: #444;">SECURED BY PLISIO</p>
+                </form>
+            </div>
         </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="container">
-        <h2>Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <div class="faq-question">What crypto do you accept?</div>
-            <p>We process payments via Plisio, accepting USDT (TRC20/ERC20), BTC, ETH, and USDC.</p>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">Do you ship worldwide?</div>
-            <p>Yes. Shipping is calculated flat-rate included in the 600 USDT price for most regions.</p>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question">What if it arrives damaged?</div>
-            <p>We insure every package. Send us a photo within 24 hours of arrival for a full replacement.</p>
+        <h2>Q&A</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <div class="faq-q">Payment Methods</div>
+                <p>We accept USDT (TRC20/ERC20), Bitcoin, Ethereum, and USDC via Plisio. All transactions are secure and automated.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Production Timeline</div>
+                <p>Each panel is handmade to order. Current production lead time is approximately 14 days.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Shipping & Warranty</div>
+                <p>Global shipping is included in the price. We provide a 1-year guarantee on all electronics and craftsmanship.</p>
+            </div>
         </div>
     </section>
 
-    <!-- CUSTOM -->
-    <section id="custom" class="container text-center">
-        <h2>Custom Commissions</h2>
-        <p>Want a specific logo, a different shape, or corporate branding?</p>
-        <div class="placeholder custom-img" data-label="IMAGE: Custom shaped panel example"></div>
-        <p>Email us at <a href="mailto:custom@example.com" style="color:var(--accent-gold);">custom@example.com</a></p>
+    <section id="custom" class="container text-center" style="border-bottom: none;">
+        <h3>Commissions</h3>
+        <p>Corporate branding. Custom geometries. Large scale.</p>
+        <div class="placeholder custom-img" style="width:100%; height:200px; margin-bottom:2rem;" data-label="IMAGE: Custom Logo Concept"></div>
+        <a href="mailto:studio@lukostudio.com" class="btn btn-secondary">Contact Luko Studio</a>
     </section>
 
     <footer>
-        <p>&copy; 2023 Bitcoin Indicator Panel. All rights reserved.</p>
+        <p>Designed & Built by Luko Studio &copy; 2023</p>
     </footer>
 
-    <!-- LOADING OVERLAY -->
+    <!-- LOADING -->
     <div id="loading-overlay">
         <div class="spinner"></div>
-        <div style="color:white;">Generating Invoice...</div>
+        <div style="color: #fff; font-family: var(--font-head); letter-spacing: 2px; font-size: 0.8rem;">PROCESSING</div>
     </div>
 
     <script>
-        // CONFIGURATION
-        // REPLACE THIS WITH YOUR DEPLOYED WORKER URL
+        // --- CONFIG ---
         const API_URL = '/api/create-invoice'; 
 
-        // VARIANT SELECTION LOGIC
-        function selectFormVariant(value, element) {
-            document.getElementById('inputVariant').value = value;
-            // Update UI
-            const opts = element.parentElement.querySelectorAll('.variant-opt');
-            opts.forEach(opt => opt.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        // SYNC HERO SELECTOR WITH FORM
-        const heroOpts = document.querySelectorAll('#hero-variant-selector .variant-opt');
-        heroOpts.forEach(opt => {
-            opt.addEventListener('click', () => {
-                const val = opt.getAttribute('data-value');
-                // visual toggle hero
-                heroOpts.forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                // sync form
-                const formOpts = document.querySelectorAll('.form-group .variant-opt');
-                formOpts.forEach(fo => {
-                    if(fo.innerText === val) fo.click();
-                });
-            });
-        });
-
+        // --- SCROLL HELPER ---
         function scrollToOrder() {
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // CAROUSEL LOGIC
-        const track = document.querySelector('.carousel-track');
-        const slides = Array.from(track.children);
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const dotsContainer = document.querySelector('.carousel-dots');
+        // --- VARIANT LOGIC (Centralized) ---
+        function updateVariantUI(value) {
+            // 1. Update Hidden Form Input
+            document.getElementById('inputVariant').value = value;
 
-        let currentSlide = 0;
+            // 2. Update Visual State (Active classes)
+            // Select all variant options on the page (both hero and form)
+            const allOpts = document.querySelectorAll('.variant-opt');
+            allOpts.forEach(opt => {
+                const optVal = opt.getAttribute('data-value') || opt.textContent.trim();
+                if (optVal === value) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
 
-        // Initialize Dots
-        slides.forEach((_, idx) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (idx === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => moveToSlide(idx));
-            dotsContainer.appendChild(dot);
+            // 3. Update Price Display in Hero
+            const priceEl = document.querySelector('.hero-price');
+            if (value === 'Black Edition') {
+                priceEl.textContent = '400 USDT';
+            } else if (value === 'Gold Edition') {
+                priceEl.textContent = '600 USDT';
+            }
+        }
+
+        // Bind click events to all variant selectors
+        document.querySelectorAll('.variant-opt').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const val = this.getAttribute('data-value') || this.textContent.trim();
+                updateVariantUI(val);
+            });
         });
 
-        const dots = Array.from(dotsContainer.children);
+        // --- CAROUSEL LOGIC ---
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextBtn = document.querySelector('.nav-btn.next');
+        const prevBtn = document.querySelector('.nav-btn.prev');
+        let currentSlide = 0;
 
-        function moveToSlide(targetIndex) {
-            // Loop functionality
-            if (targetIndex < 0) targetIndex = slides.length - 1;
-            if (targetIndex >= slides.length) targetIndex = 0;
-            
-            track.style.transform = 'translateX(-' + (targetIndex * 100) + '%)';
-            
-            dots[currentSlide].classList.remove('active');
-            dots[targetIndex].classList.add('active');
-            
-            currentSlide = targetIndex;
+        function moveToSlide(index) {
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+            track.style.transform = 'translateX(-' + (index * 100) + '%)';
+            currentSlide = index;
         }
 
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
 
-        // FORM SUBMISSION
+        // Auto-advance
+        setInterval(() => {
+            moveToSlide(currentSlide + 1);
+        }, 5000);
+
+        // --- FORM LOGIC ---
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
