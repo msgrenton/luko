@@ -460,6 +460,32 @@
             section, section.container { padding-top: 8rem; padding-bottom: 5rem; }
             h1 { font-size: 2.5rem; }
             .order-container { padding: 1.5rem; }
+
+            /* Mobile Cart Layout: Row 1 (Name - Price), Row 2 (Controls) */
+            .cart-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+            }
+            .item-info {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+            .item-name {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+            .qty-controls {
+                width: 100%;
+                justify-content: space-between;
+                padding: 0.5rem 1rem;
+            }
+            .qty-btn {
+                width: 44px;
+                height: 44px;
+            }
         }
 
         /* --- OVERLAYS & MODALS --- */
