@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin Indicator Panel | Luko Studio</title>
-    <meta name="description" content="Handmade 1-meter Bitcoin wall panel. Visualizes BTC price action in real-time. Designed by Luko Studio.">
+    <meta name="description" content="Handmade 1-meter Bitcoin wall panel. Visualizes BTC/USDT price action in real-time. Designed by Luko Studio.">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Bitcoin Indicator Panel | Luko Studio">
+    <meta property="og:description" content="Handmade 1-meter Bitcoin wall sculpture reacting to BTC/USDT price in real time.">
+    <meta property="og:image" content="https://luko-duq.pages.dev/media/og-bitcoin-panel.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://luko-duq.pages.dev/media/og-bitcoin-panel.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,22 +96,19 @@
         /* --- LAYOUT --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* Updated padding to prevent headers hitting previous section border */
         section { padding: 12rem 0 8rem 0; border-bottom: var(--border-thin); position: relative; }
-        
-        /* Specificity Fix: Ensure sections that are also containers maintain vertical padding */
         section.container {
             padding-top: 12rem;
             padding-bottom: 8rem;
         }
 
-        /* --- BUTTONS (Industrial) --- */
+        /* --- BUTTONS --- */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 1rem 2.5rem;
-            border-radius: 0; /* Square corners */
+            border-radius: 0;
             font-family: var(--font-head);
             font-weight: 600;
             text-transform: uppercase;
@@ -130,35 +139,12 @@
             background: rgba(255,255,255,0.05);
         }
 
-        /* --- PLACEHOLDERS (Technical) --- */
-        .placeholder {
-            background-color: #0f0f0f;
-            /* Technical grid pattern */
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #444;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.7rem;
-            border: var(--border-thin);
-            position: relative;
-            overflow: hidden;
-        }
-        .placeholder::after { content: attr(data-label); z-index: 1; text-align: center; padding: 1rem; }
-        
         /* --- SECTION: HERO --- */
         .hero { 
             text-align: center; 
             padding-top: 10rem; 
             padding-bottom: 6rem; 
         }
-        /* Override specifically for hero if it shares .container class */
         section.hero {
             padding-top: 10rem;
             padding-bottom: 6rem;
@@ -181,9 +167,10 @@
             max-height: 600px; 
             margin-top: 4rem; 
             border: var(--border-thin);
+            object-fit: cover;
         }
 
-        /* Variant Selector (Minimal - For Hero Only) */
+        /* Variant Selector */
         .variant-selector {
             display: inline-flex;
             border-bottom: 1px solid #333;
@@ -208,18 +195,19 @@
         }
 
         /* --- DEMO --- */
-        .demo-video {
+        .demo-media {
             width: 100%;
             height: 500px;
             border: var(--border-thin);
+            object-fit: cover;
         }
 
-        /* --- HOW IT WORKS (Minimal Cards) --- */
+        /* --- HOW IT WORKS --- */
         .how-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1px; /* Gap for border effect */
-            background: #222; /* Border color */
+            gap: 1px;
+            background: #222;
             border: 1px solid #222;
             margin-top: 3rem;
         }
@@ -236,9 +224,8 @@
             margin-bottom: 1rem;
             font-weight: 600;
         }
-        .setup-img { width: 100%; height: 250px; margin-top: 2rem; border: var(--border-thin); }
 
-        /* --- FEATURES (Split) --- */
+        /* --- FEATURES --- */
         .feature-split {
             display: flex;
             flex-direction: column;
@@ -253,10 +240,12 @@
         .feature-img {
             width: 100%;
             aspect-ratio: 16/9;
+            object-fit: cover;
+            border: var(--border-thin);
         }
         .feature-content h3 { color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- CAROUSEL (Clean) --- */
+        /* --- CAROUSEL --- */
         .carousel-wrapper {
             margin-top: 3rem;
             border: var(--border-thin);
@@ -278,7 +267,7 @@
             min-width: 100%;
             height: 100%;
             border: none;
-            background-color: #080808;
+            object-fit: cover;
         }
         .carousel-nav {
             position: absolute;
@@ -306,7 +295,7 @@
         .nav-btn:first-child { border-right: 1px solid #222; }
         .nav-btn:hover { background: #fff; color: #000; }
 
-        /* --- ORDER FORM (Monolith) --- */
+        /* --- ORDER FORM --- */
         .order-section {
             background: #080808;
             padding: 8rem 0;
@@ -318,19 +307,6 @@
             border: var(--border-thin);
             padding: 3rem;
         }
-
-        .price-list {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #222;
-            padding-bottom: 1rem;
-            color: #888;
-            font-size: 0.85rem;
-            font-family: var(--font-head);
-            text-transform: uppercase;
-        }
-        .price-item span { color: #fff; font-weight: 600; }
 
         .form-group { margin-bottom: 2rem; text-align: left; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
@@ -362,10 +338,6 @@
         }
         input::placeholder, textarea::placeholder { color: #333; }
 
-        .promo-status { font-size: 0.8rem; margin-top: 0.5rem; height: 1.2em; letter-spacing: 0.5px; }
-        .promo-success { color: #fff; }
-        .promo-error { color: var(--error); }
-        
         .crypto-notice {
             margin-bottom: 2.5rem;
             font-size: 0.8rem;
@@ -376,7 +348,6 @@
             text-align: center;
         }
 
-        /* Product Cart Styles */
         .cart-section {
             background: rgba(255,255,255,0.02);
             border: 1px solid #222;
@@ -403,7 +374,7 @@
         
         .qty-controls {
             display: flex;
-            align-items: center;
+           	align-items: center;
             gap: 1rem;
             background: #111;
             padding: 0.3rem;
@@ -433,11 +404,8 @@
             border: none;
             background: transparent;
         }
-        /* Remove number spinner */
         .qty-val::-webkit-inner-spin-button, .qty-val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
-
-        /* Total Display */
         .total-display {
             text-align: center;
             font-family: var(--font-head);
@@ -487,12 +455,9 @@
 
         @media (max-width: 600px) {
             .form-row { grid-template-columns: 1fr; gap: 2rem; }
-            /* Update specificity for mobile padding as well */
             section, section.container { padding-top: 8rem; padding-bottom: 5rem; }
-            
             h1 { font-size: 2.5rem; }
             .order-container { padding: 1.5rem; }
-            .price-list { flex-direction: column; gap: 0.5rem; text-align: center; }
         }
 
         /* --- LOADER --- */
@@ -521,7 +486,6 @@
         
         <span class="hero-price">From 400 USDT • worldwide shipping included</span>
 
-        <!-- Hero Variant Selector (Visual Only) -->
         <div class="variant-selector" id="hero-variant-selector">
             <div class="variant-opt active" data-value="Black Edition">Black Edition</div>
             <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
@@ -532,15 +496,15 @@
             <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">View Demo</button>
         </div>
 
-        <div class="placeholder hero-img" data-label="HERO PHOTOGRAPHY: Matte black panel on concrete wall"></div>
+        <img src="media/hero-bitcoin-panel.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
     </section>
 
     <!-- DEMO -->
     <section id="demo" style="background: #0a0a0a;">
         <div class="container text-center">
             <h2>Live Reaction</h2>
-            <p class="subhead">No screens. No noise. Pure signal. The panel breathes with the market, shifting instantly from red to green.</p>
-            <div class="placeholder demo-video" data-label="VIDEO LOOP: Color shifting based on BTC price"></div>
+            <p class="subhead">No screens. No noise. Pure signal. The panel breathes with the market, shifting as BTC moves.</p>
+            <img src="media/demo-btc-react.jpg" alt="Bitcoin panel color reaction demo" class="demo-media">
         </div>
     </section>
 
@@ -569,17 +533,15 @@
     <!-- FEATURES -->
     <section id="features" class="container">
         <div class="feature-split">
-            <!-- Row 1 -->
             <div class="feature-row">
-                <div class="placeholder feature-img" data-label="LIFESTYLE: Minimalist Studio Setting"></div>
+                <img src="media/feature-lifestyle.jpg" alt="Bitcoin panel in minimalist studio interior" class="feature-img">
                 <div class="feature-content">
                     <h3>Ambient Intelligence</h3>
                     <p>Stop refreshing CoinGecko. Understand the BTC trend with a peripheral glance. Designed to be a presence, not a distraction.</p>
                 </div>
             </div>
-            <!-- Row 2 -->
             <div class="feature-row reverse">
-                <div class="placeholder feature-img" data-label="MACRO: Matte Composite Texture"></div>
+                <img src="media/feature-texture.jpg" alt="Macro detail of the panel surface and lighting" class="feature-img">
                 <div class="feature-content">
                     <h3>Industrial Craft</h3>
                     <p>Built in small batches at Luko Studio. Composite matte finish, industrial-grade acrylics, and hand-soldered ESP32 logic boards.</p>
@@ -594,10 +556,10 @@
         <div class="carousel-wrapper">
             <div class="carousel" id="tech-carousel">
                 <div class="carousel-track">
-                    <div class="placeholder carousel-slide" data-label="100cm Diameter Scale"></div>
-                    <div class="placeholder carousel-slide" data-label="144/m LED Density Macro"></div>
-                    <div class="placeholder carousel-slide" data-label="Slim Profile Side View"></div>
-                    <div class="placeholder carousel-slide" data-label="Internal Logic Board"></div>
+                    <img src="media/spec-diameter.jpg" class="carousel-slide" alt="100cm diameter scale of the panel">
+                    <img src="media/spec-led.jpg" class="carousel-slide" alt="High-density LED backlight detail">
+                    <img src="media/spec-profile.jpg" class="carousel-slide" alt="Slim side profile of the panel">
+                    <img src="media/spec-board.jpg" class="carousel-slide" alt="Internal logic board and wiring">
                 </div>
                 <div class="carousel-nav">
                     <button class="nav-btn prev" aria-label="Previous">&lt;</button>
@@ -622,7 +584,6 @@
                 </div>
 
                 <form id="orderForm">
-                    
                     <div class="form-group">
                         <label>Select Allocation</label>
                         <div class="cart-section">
@@ -740,10 +701,11 @@
         </div>
     </section>
 
+    <!-- CUSTOM -->
     <section id="custom" class="container text-center" style="border-bottom: none;">
         <h3>Commissions</h3>
         <p>Corporate branding. Custom geometries. Large scale.</p>
-        <div class="placeholder custom-img" style="width:100%; height:200px; margin-bottom:2rem;" data-label="IMAGE: Custom Logo Concept"></div>
+        <img src="media/custom-panel.jpg" alt="Custom commissioned indicator panel concept" class="custom-img" style="width:100%; height:auto; margin-bottom:2rem; border:1px solid #222;">
         <a href="mailto:studio@lukostudio.com" class="btn btn-secondary">Contact Luko Studio</a>
     </section>
 
@@ -758,39 +720,30 @@
     </div>
 
     <script>
-        // --- CONFIG ---
         const API_URL = '/api/create-invoice'; 
 
-        // --- SCROLL HELPER ---
         function scrollToOrder() {
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- HERO VARIANT LOGIC (Visual Only) ---
-        // Keeps the hero looking interactive, even if order form is separate.
+        // HERO VARIANT UI
         document.querySelectorAll('.variant-opt').forEach(opt => {
             opt.addEventListener('click', function() {
-                // Update active state
                 document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
                 this.classList.add('active');
 
-                // Update Hero Text
                 const val = this.getAttribute('data-value');
                 const priceEl = document.querySelector('.hero-price');
                 if (val === 'Black Edition') {
                     priceEl.textContent = 'Black Edition — 400 USDT • worldwide shipping included';
-                    // Optional: Update Hero Image placeholder text or src here
                 } else if (val === 'Gold Edition') {
                     priceEl.textContent = 'Gold Edition — 600 USDT • worldwide shipping included';
                 }
             });
         });
 
-        // --- CART / ORDER LOGIC ---
-        const PRICES = {
-            'black': 400,
-            'gold': 600
-        };
+        // CART / ORDER LOGIC
+        const PRICES = { black: 400, gold: 600 };
 
         function updateItemQty(id, delta) {
             const el = document.getElementById('qty_' + id);
@@ -805,14 +758,11 @@
         function calculateTotal() {
             const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
             const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
-            
-            let total = (qtyBlack * PRICES['black']) + (qtyGold * PRICES['gold']);
+            let total = (qtyBlack * PRICES.black) + (qtyGold * PRICES.gold);
             
             const promo = document.getElementById('promo').value.toUpperCase().trim();
             let discountHtml = '';
 
-            // Apply Promo (Client Side Preview)
-            // Note: Server has final authority.
             if (total > 0) {
                 if (promo === 'LUCO10') {
                     total = total * 0.90;
@@ -822,7 +772,6 @@
                     discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">$50 DISCOUNT APPLIED</div>';
                 }
             }
-
             if (total < 0) total = 0;
 
             document.getElementById('finalPrice').innerHTML = `${total.toFixed(2)} USDT${discountHtml}`;
@@ -830,7 +779,7 @@
 
         document.getElementById('promo').addEventListener('input', calculateTotal);
 
-        // --- CAROUSEL LOGIC ---
+        // CAROUSEL
         const track = document.querySelector('.carousel-track');
         const slides = Array.from(track.children);
         const nextBtn = document.querySelector('.nav-btn.next');
@@ -846,19 +795,15 @@
 
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
+        setInterval(() => { moveToSlide(currentSlide + 1); }, 5000);
 
-        setInterval(() => {
-            moveToSlide(currentSlide + 1);
-        }, 5000);
-
-        // --- FORM LOGIC ---
+        // FORM SUBMIT
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const overlay = document.getElementById('loading-overlay');
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
-            // Validate Total > 0
             const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
             const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
 
@@ -878,14 +823,14 @@
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                items: items, // Sending Items array instead of single variant
+                items: items,
                 address: {
                     line1: document.getElementById('address_line1').value,
                     line2: document.getElementById('address_line2').value,
                     city: document.getElementById('city').value,
                     state: document.getElementById('state').value,
                     zip: document.getElementById('zip').value,
-                    country: document.getElementById('country').value,
+                    country: document.getElementById('country').value
                 },
                 promo: document.getElementById('promo').value,
                 note: document.getElementById('note').value
@@ -899,12 +844,15 @@
                 });
 
                 if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Server error');
+                    let errorMsg = 'Server error';
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.error) errorMsg = errorData.error;
+                    } catch (_) {}
+                    throw new Error(errorMsg);
                 }
 
                 const data = await response.json();
-                
                 if (data.invoice_url) {
                     window.location.href = data.invoice_url;
                 } else {
@@ -917,8 +865,7 @@
                 submitBtn.disabled = false;
             }
         });
-        
-        // Initial Calculation
+
         calculateTotal();
     </script>
 </body>
