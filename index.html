@@ -143,7 +143,11 @@
         .hero { 
             text-align: center; 
             padding-top: 10rem; 
-            padding-bottom: 6rem; 
+            padding-bottom: 6rem;
+            /* Subtle red-green ambient gradient */
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 59, 48, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 65, 0.15) 0%, transparent 50%);
         }
         section.hero {
             padding-top: 10rem;
@@ -256,6 +260,8 @@
             height: 500px;
             overflow: hidden;
             background: #000;
+            /* Enhance touch handling */
+            touch-action: pan-y;
         }
         .carousel-track {
             display: flex;
@@ -460,10 +466,10 @@
             .order-container { padding: 1.5rem; }
         }
 
-        /* --- LOADER --- */
-        #loading-overlay {
+        /* --- OVERLAYS & MODALS --- */
+        #loading-overlay, #status-modal {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: #000; z-index: 2000;
+            background: rgba(0,0,0,0.95); z-index: 2000;
             display: none; justify-content: center; align-items: center; flex-direction: column;
         }
         .spinner {
@@ -474,6 +480,27 @@
             animation: spin 0.8s linear infinite; margin-bottom: 2rem;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .modal-content {
+            background: #111;
+            border: 1px solid #333;
+            padding: 3rem;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 1rem;
+        }
+        .modal-title {
+            color: #fff;
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .modal-text {
+            color: #888;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -710,21 +737,72 @@
     </section>
 
     <footer>
-        <p>Designed & Built by Luko Studio &copy; 2023</p>
+        <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
     </footer>
 
-    <!-- LOADING -->
+    <!-- LOADING OVERLAY -->
     <div id="loading-overlay">
         <div class="spinner"></div>
         <div style="color: #fff; font-family: var(--font-head); letter-spacing: 2px; font-size: 0.8rem;">PROCESSING</div>
     </div>
 
+    <!-- STATUS MODAL -->
+    <div id="status-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" class="modal-title"></h3>
+            <p id="modal-text" class="modal-text"></p>
+            <button class="btn btn-primary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
     <script>
+        // --- FOOTER YEAR ---
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- CONFIG ---
         const API_URL = '/api/create-invoice'; 
 
+        // --- SCROLL HELPER ---
         function scrollToOrder() {
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // --- URL PARAM CHECK (Success/Fail) ---
+        function checkUrlStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const modal = document.getElementById('status-modal');
+            const title = document.getElementById('modal-title');
+            const text = document.getElementById('modal-text');
+
+            if (status === 'success') {
+                modal.style.display = 'flex';
+                title.textContent = 'Order Confirmed';
+                title.style.color = 'var(--success)';
+                text.textContent = 'Thank you. Your payment has been detected. We will begin production immediately. Please check your email for confirmation.';
+                
+                // Reset cart visuals
+                document.getElementById('qty_black').value = 0;
+                document.getElementById('qty_gold').value = 0;
+                calculateTotal();
+            } else if (status === 'fail') {
+                modal.style.display = 'flex';
+                title.textContent = 'Payment Failed';
+                title.style.color = 'var(--error)';
+                text.textContent = 'The payment process was cancelled or failed. Your order has not been finalized. Please try again.';
+                
+                // Scroll to order form to try again
+                scrollToOrder();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('status-modal').style.display = 'none';
+            // Clear URL params
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        window.addEventListener('load', checkUrlStatus);
 
         // HERO VARIANT UI
         document.querySelectorAll('.variant-opt').forEach(opt => {
@@ -795,7 +873,31 @@
 
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
-        setInterval(() => { moveToSlide(currentSlide + 1); }, 5000);
+        
+        // --- ADDED TOUCH SUPPORT ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        track.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+
+        track.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            // Threshold of 50px
+            if (touchStartX - touchEndX > 50) {
+                // Swipe Left -> Next
+                moveToSlide(currentSlide + 1);
+            }
+            if (touchEndX - touchStartX > 50) {
+                // Swipe Right -> Prev
+                moveToSlide(currentSlide - 1);
+            }
+        }
 
         // FORM SUBMIT
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
