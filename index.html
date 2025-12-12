@@ -83,7 +83,15 @@
 
         /* --- LAYOUT --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
-        section { padding: 8rem 0; border-bottom: var(--border-thin); position: relative; }
+        
+        /* Updated padding to prevent headers hitting previous section border */
+        section { padding: 12rem 0 8rem 0; border-bottom: var(--border-thin); position: relative; }
+        
+        /* Specificity Fix: Ensure sections that are also containers maintain vertical padding */
+        section.container {
+            padding-top: 12rem;
+            padding-bottom: 8rem;
+        }
 
         /* --- BUTTONS (Industrial) --- */
         .btn {
@@ -150,6 +158,12 @@
             padding-top: 10rem; 
             padding-bottom: 6rem; 
         }
+        /* Override specifically for hero if it shares .container class */
+        section.hero {
+            padding-top: 10rem;
+            padding-bottom: 6rem;
+        }
+
         .hero-price { 
             font-family: var(--font-body);
             font-size: 1.1rem; 
@@ -169,7 +183,7 @@
             border: var(--border-thin);
         }
 
-        /* Variant Selector (Minimal) */
+        /* Variant Selector (Minimal - For Hero Only) */
         .variant-selector {
             display: inline-flex;
             border-bottom: 1px solid #333;
@@ -353,13 +367,97 @@
         .promo-error { color: var(--error); }
         
         .crypto-notice {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
             font-size: 0.8rem;
             color: #aaa;
             background: rgba(255,255,255,0.03);
             padding: 1rem;
             border: 1px solid #222;
             text-align: center;
+        }
+
+        /* Product Cart Styles */
+        .cart-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #222;
+        }
+        .cart-item:last-child { border-bottom: none; }
+        .item-info { flex-grow: 1; }
+        .item-name { 
+            font-family: var(--font-head); 
+            font-size: 0.9rem; 
+            color: #fff; 
+            display: block; 
+            font-weight: 600; 
+        }
+        .item-price { font-size: 0.8rem; color: #666; }
+        
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #111;
+            padding: 0.3rem;
+            border: 1px solid #333;
+        }
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .qty-btn:hover { background: #222; }
+        .qty-val {
+            width: 30px;
+            text-align: center;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            background: transparent;
+        }
+        /* Remove number spinner */
+        .qty-val::-webkit-inner-spin-button, .qty-val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+
+        /* Total Display */
+        .total-display {
+            text-align: center;
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .total-label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* --- FAQ --- */
@@ -389,7 +487,9 @@
 
         @media (max-width: 600px) {
             .form-row { grid-template-columns: 1fr; gap: 2rem; }
-            section { padding: 5rem 0; }
+            /* Update specificity for mobile padding as well */
+            section, section.container { padding-top: 8rem; padding-bottom: 5rem; }
+            
             h1 { font-size: 2.5rem; }
             .order-container { padding: 1.5rem; }
             .price-list { flex-direction: column; gap: 0.5rem; text-align: center; }
@@ -421,6 +521,7 @@
         
         <span class="hero-price">From 400 USDT • worldwide shipping included</span>
 
+        <!-- Hero Variant Selector (Visual Only) -->
         <div class="variant-selector" id="hero-variant-selector">
             <div class="variant-opt active" data-value="Black Edition">Black Edition</div>
             <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
@@ -516,26 +617,38 @@
             
             <div class="order-container">
                 
-                <div class="price-list">
-                    <div class="price-item">Black Edition — <span>400 USDT</span></div>
-                    <div class="price-item">Gold Edition — <span>600 USDT</span></div>
-                </div>
-                <div class="text-center" style="margin-bottom: 2rem; color: #666; font-size: 0.8rem;">
-                    WORLDWIDE SHIPPING INCLUDED
-                </div>
-
                 <div class="crypto-notice">
                     Payment in USDT, BTC, ETH, or USDC via Plisio. No card payments.
                 </div>
 
                 <form id="orderForm">
+                    
                     <div class="form-group">
-                        <label>Variant Selection</label>
-                        <div class="variant-selector" style="width: 100%; display: flex;">
-                            <div class="variant-opt active" data-value="Black Edition" style="margin-right: 2rem;">Black Edition</div>
-                            <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
+                        <label>Select Allocation</label>
+                        <div class="cart-section">
+                            <div class="cart-item">
+                                <div class="item-info">
+                                    <span class="item-name">Black Edition</span>
+                                    <span class="item-price">400 USDT</span>
+                                </div>
+                                <div class="qty-controls">
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black', -1)">−</button>
+                                    <input type="number" id="qty_black" class="qty-val" value="1" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="item-info">
+                                    <span class="item-name">Gold Edition</span>
+                                    <span class="item-price">600 USDT</span>
+                                </div>
+                                <div class="qty-controls">
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold', -1)">−</button>
+                                    <input type="number" id="qty_gold" class="qty-val" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold', 1)">+</button>
+                                </div>
+                            </div>
                         </div>
-                        <input type="hidden" name="variant" id="inputVariant" value="Black Edition">
                     </div>
 
                     <div class="form-row">
@@ -547,6 +660,11 @@
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" required placeholder="name@domain.com">
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
                     </div>
 
                     <div class="form-group">
@@ -584,7 +702,6 @@
                     <div class="form-group">
                         <label for="promo">Access Code</label>
                         <input type="text" id="promo" name="promo" placeholder="Enter Promo">
-                        <div class="promo-status" id="promoStatus"></div>
                     </div>
 
                     <div class="form-group">
@@ -592,7 +709,12 @@
                         <textarea id="note" name="note" rows="2" placeholder="Special delivery instructions"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem;">Proceed to Crypto Payment</button>
+                    <div class="total-display">
+                        <span class="total-label">Estimated Total</span>
+                        <span id="finalPrice">400.00 USDT</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Proceed to Crypto Payment</button>
                     <p style="text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: #444;">SECURED BY PLISIO</p>
                 </form>
             </div>
@@ -644,39 +766,69 @@
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- VARIANT LOGIC (Centralized) ---
-        function updateVariantUI(value) {
-            // 1. Update Hidden Form Input
-            document.getElementById('inputVariant').value = value;
-
-            // 2. Update Visual State (Active classes)
-            // Select all variant options on the page (both hero and form)
-            const allOpts = document.querySelectorAll('.variant-opt');
-            allOpts.forEach(opt => {
-                const optVal = opt.getAttribute('data-value') || opt.textContent.trim();
-                if (optVal === value) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
-
-            // 3. Update Price Display in Hero
-            const priceEl = document.querySelector('.hero-price');
-            if (value === 'Black Edition') {
-                priceEl.textContent = 'Black Edition — 400 USDT • worldwide shipping included';
-            } else if (value === 'Gold Edition') {
-                priceEl.textContent = 'Gold Edition — 600 USDT • worldwide shipping included';
-            }
-        }
-
-        // Bind click events to all variant selectors
+        // --- HERO VARIANT LOGIC (Visual Only) ---
+        // Keeps the hero looking interactive, even if order form is separate.
         document.querySelectorAll('.variant-opt').forEach(opt => {
             opt.addEventListener('click', function() {
-                const val = this.getAttribute('data-value') || this.textContent.trim();
-                updateVariantUI(val);
+                // Update active state
+                document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+
+                // Update Hero Text
+                const val = this.getAttribute('data-value');
+                const priceEl = document.querySelector('.hero-price');
+                if (val === 'Black Edition') {
+                    priceEl.textContent = 'Black Edition — 400 USDT • worldwide shipping included';
+                    // Optional: Update Hero Image placeholder text or src here
+                } else if (val === 'Gold Edition') {
+                    priceEl.textContent = 'Gold Edition — 600 USDT • worldwide shipping included';
+                }
             });
         });
+
+        // --- CART / ORDER LOGIC ---
+        const PRICES = {
+            'black': 400,
+            'gold': 600
+        };
+
+        function updateItemQty(id, delta) {
+            const el = document.getElementById('qty_' + id);
+            let val = parseInt(el.value) || 0;
+            val += delta;
+            if (val < 0) val = 0;
+            if (val > 10) val = 10;
+            el.value = val;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
+            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
+            
+            let total = (qtyBlack * PRICES['black']) + (qtyGold * PRICES['gold']);
+            
+            const promo = document.getElementById('promo').value.toUpperCase().trim();
+            let discountHtml = '';
+
+            // Apply Promo (Client Side Preview)
+            // Note: Server has final authority.
+            if (total > 0) {
+                if (promo === 'LUCO10') {
+                    total = total * 0.90;
+                    discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">10% DISCOUNT APPLIED</div>';
+                } else if (promo === 'EARLY50') {
+                    total = total - 50;
+                    discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">$50 DISCOUNT APPLIED</div>';
+                }
+            }
+
+            if (total < 0) total = 0;
+
+            document.getElementById('finalPrice').innerHTML = `${total.toFixed(2)} USDT${discountHtml}`;
+        }
+
+        document.getElementById('promo').addEventListener('input', calculateTotal);
 
         // --- CAROUSEL LOGIC ---
         const track = document.querySelector('.carousel-track');
@@ -695,7 +847,6 @@
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
 
-        // Auto-advance
         setInterval(() => {
             moveToSlide(currentSlide + 1);
         }, 5000);
@@ -707,12 +858,27 @@
             const overlay = document.getElementById('loading-overlay');
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
+            // Validate Total > 0
+            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
+            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
+
+            if (qtyBlack === 0 && qtyGold === 0) {
+                alert("Please select at least one item.");
+                return;
+            }
+
             overlay.style.display = 'flex';
             submitBtn.disabled = true;
+
+            const items = [];
+            if (qtyBlack > 0) items.push({ variant: 'Black Edition', quantity: qtyBlack });
+            if (qtyGold > 0) items.push({ variant: 'Gold Edition', quantity: qtyGold });
 
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                items: items, // Sending Items array instead of single variant
                 address: {
                     line1: document.getElementById('address_line1').value,
                     line2: document.getElementById('address_line2').value,
@@ -721,7 +887,6 @@
                     zip: document.getElementById('zip').value,
                     country: document.getElementById('country').value,
                 },
-                variant: document.getElementById('inputVariant').value,
                 promo: document.getElementById('promo').value,
                 note: document.getElementById('note').value
             };
@@ -752,6 +917,9 @@
                 submitBtn.disabled = false;
             }
         });
+        
+        // Initial Calculation
+        calculateTotal();
     </script>
 </body>
 </html>
