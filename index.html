@@ -640,9 +640,9 @@
 
     <!-- HERO -->
     <section class="hero container">
-        <span class="studio-kicker">Luko Studio Presents</span>
-        <h1>The Bitcoin <br> Indicator Panel</h1>
-        <p class="subhead">A handmade kinetic sculpture. Visualizing BTC/USDT price action in real-time.</p>
+        <span class="studio-kicker">LUKO STUDIO PRESENTS</span>
+        <h1>THE BITCOIN INDICATOR PANEL</h1>
+        <p class="subhead">A live ambient signal of BTC price action.</p>
         
         <span class="hero-price">From 400 USDT • worldwide shipping included</span>
 
@@ -678,7 +678,7 @@
             </div>
             <div class="persona-card">
                 <div class="persona-idx">04</div>
-                <div class="persona-text">A status object: “I’m in the market”</div>
+                <div class="persona-text">A discreet status marker for people who actually trade.</div>
             </div>
         </div>
 
@@ -701,7 +701,7 @@
             <div class="how-step">
                 <span class="step-num">01 / POWER</span>
                 <h3>Initialize</h3>
-                <p>Mount the panel. Plug into any standard outlet (110V/220V). The aura ring pulses white.</p>
+                <p>Mount the panel. Plug into any standard outlet (110V/220V). It initializes automatically.</p>
             </div>
             <div class="how-step">
                 <span class="step-num">02 / CONNECT</span>
@@ -730,7 +730,7 @@
                 <img src="media/feature-texture.jpg" alt="Macro detail of the panel surface and lighting" class="feature-img">
                 <div class="feature-content">
                     <h3>Industrial Craft</h3>
-                    <p>Built in small batches at Luko Studio. Composite matte finish, industrial-grade acrylics, and hand-soldered ESP32 logic boards.</p>
+                    <p>Engineered with a solid wood core, matte architectural coating, and a hand-soldered ESP32 logic board. Rigid and durable.</p>
                 </div>
             </div>
         </div>
@@ -974,7 +974,8 @@
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
         // --- CONFIG ---
-        const API_URL = '/api/create-invoice'; 
+        const PREVIEW_URL = '/api/preview-total';
+        const CREATE_INVOICE_URL = '/api/create-invoice';
 
         // --- SCROLL HELPER ---
         function scrollToOrder() {
@@ -998,7 +999,7 @@
                 // Reset cart visuals
                 document.getElementById('qty_black').value = 0;
                 document.getElementById('qty_gold').value = 0;
-                calculateTotal();
+                fetchPreview(); // Sync to 0
             } else if (status === 'fail') {
                 modal.style.display = 'flex';
                 title.textContent = 'Payment Failed';
@@ -1016,7 +1017,10 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        window.addEventListener('load', checkUrlStatus);
+        window.addEventListener('load', () => {
+            checkUrlStatus();
+            fetchPreview(); // Initial server-side calc
+        });
 
         // HERO VARIANT UI
         document.querySelectorAll('.variant-opt').forEach(opt => {
@@ -1034,8 +1038,20 @@
             });
         });
 
-        // CART / ORDER LOGIC
-        const PRICES = { black: 400, gold: 600 };
+        // --- SERVER-SIDE PRICING LOGIC ---
+        
+        let debounceTimer;
+
+        function getItemsFromDOM() {
+            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
+            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
+            
+            const items = [];
+            if (qtyBlack > 0) items.push({ variant: 'Black Edition', quantity: qtyBlack });
+            if (qtyGold > 0) items.push({ variant: 'Gold Edition', quantity: qtyGold });
+            
+            return items;
+        }
 
         function updateItemQty(id, delta) {
             const el = document.getElementById('qty_' + id);
@@ -1044,32 +1060,50 @@
             if (val < 0) val = 0;
             if (val > 10) val = 10;
             el.value = val;
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
-            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
-            let total = (qtyBlack * PRICES.black) + (qtyGold * PRICES.gold);
             
-            const promo = document.getElementById('promo').value.toUpperCase().trim();
-            let discountHtml = '';
-
-            if (total > 0) {
-                if (promo === 'LUCO10') {
-                    total = total * 0.90;
-                    discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">10% DISCOUNT APPLIED</div>';
-                } else if (promo === 'EARLY50') {
-                    total = total - 50;
-                    discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">$50 DISCOUNT APPLIED</div>';
-                }
-            }
-            if (total < 0) total = 0;
-
-            document.getElementById('finalPrice').innerHTML = `${total.toFixed(2)} USDT${discountHtml}`;
+            // Trigger server update
+            fetchPreview();
         }
 
-        document.getElementById('promo').addEventListener('input', calculateTotal);
+        async function fetchPreview() {
+            const items = getItemsFromDOM();
+            const promo = document.getElementById('promo').value;
+            const totalEl = document.getElementById('finalPrice');
+
+            // Optimistic update waiting state
+            // totalEl.style.opacity = '0.5';
+
+            try {
+                const response = await fetch(PREVIEW_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items, promo })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    let discountHtml = '';
+                    if (data.discount_applied) {
+                        discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">PROMO APPLIED</div>';
+                    } else if (promo.length > 0 && !data.valid) {
+                         discountHtml = '<div style="font-size:0.8rem; color:var(--error); margin-top:0.3rem;">INVALID PROMO</div>';
+                    }
+
+                    totalEl.innerHTML = `${data.final_amount.toFixed(2)} USDT${discountHtml}`;
+                }
+            } catch (e) {
+                console.error("Pricing preview failed", e);
+            } finally {
+                // totalEl.style.opacity = '1';
+            }
+        }
+
+        // Debounce promo input to avoid spamming worker
+        document.getElementById('promo').addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(fetchPreview, 500);
+        });
 
         // CAROUSEL
         const track = document.querySelector('.carousel-track');
@@ -1088,7 +1122,6 @@
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
         
-        // --- ADDED TOUCH SUPPORT ---
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -1102,15 +1135,8 @@
         }, {passive: true});
 
         function handleSwipe() {
-            // Threshold of 50px
-            if (touchStartX - touchEndX > 50) {
-                // Swipe Left -> Next
-                moveToSlide(currentSlide + 1);
-            }
-            if (touchEndX - touchStartX > 50) {
-                // Swipe Right -> Prev
-                moveToSlide(currentSlide - 1);
-            }
+            if (touchStartX - touchEndX > 50) moveToSlide(currentSlide + 1);
+            if (touchEndX - touchStartX > 50) moveToSlide(currentSlide - 1);
         }
 
         // FORM SUBMIT
@@ -1120,10 +1146,9 @@
             const overlay = document.getElementById('loading-overlay');
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
-            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
-            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
+            const items = getItemsFromDOM();
 
-            if (qtyBlack === 0 && qtyGold === 0) {
+            if (items.length === 0) {
                 alert("Please select at least one item.");
                 return;
             }
@@ -1131,15 +1156,11 @@
             overlay.style.display = 'flex';
             submitBtn.disabled = true;
 
-            const items = [];
-            if (qtyBlack > 0) items.push({ variant: 'Black Edition', quantity: qtyBlack });
-            if (qtyGold > 0) items.push({ variant: 'Gold Edition', quantity: qtyGold });
-
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                items: items,
+                items: items, // Sending items, not total
                 address: {
                     line1: document.getElementById('address_line1').value,
                     line2: document.getElementById('address_line2').value,
@@ -1153,7 +1174,7 @@
             };
 
             try {
-                const response = await fetch(API_URL, {
+                const response = await fetch(CREATE_INVOICE_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
@@ -1181,8 +1202,6 @@
                 submitBtn.disabled = false;
             }
         });
-
-        calculateTotal();
     </script>
 </body>
 </html>
