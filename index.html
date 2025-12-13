@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin Indicator Panel | Luko Studio</title>
-    <meta name="description" content="Handmade Bitcoin wall panel. Visualizes BTC/USDT price action in real-time. Designed by Luko Studio.">
+    <meta name="description" content="Handmade 1-meter Bitcoin wall panel. Visualizes BTC/USDT price action in real-time. Designed by Luko Studio.">
 
     <!-- Open Graph / Social -->
     <meta property="og:title" content="Bitcoin Indicator Panel | Luko Studio">
-    <meta property="og:description" content="Handmade Bitcoin wall sculpture reacting to BTC/USDT price in real time.">
+    <meta property="og:description" content="Handmade 1-meter Bitcoin wall sculpture reacting to BTC/USDT price in real time.">
     <meta property="og:image" content="https://lukostudio.shop/media/og-bitcoin-panel.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -85,7 +85,7 @@
             font-weight: 600;
         }
 
-        h2 { font-size: 2rem; margin-bottom: 3rem; text-align: center; font-weight: 600; letter-spacing: -1px; }
+        h2 { font-size: 2rem; margin-bottom: 2.5rem; text-align: center; font-weight: 600; letter-spacing: -1px; }
         h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.8rem; letter-spacing: 0.5px; }
         p { margin-bottom: 1.5rem; color: var(--text-muted); font-weight: 300; font-size: 0.95rem; }
         
@@ -93,13 +93,19 @@
 
         .text-center { text-align: center; }
 
-        /* --- LAYOUT --- */
+        /* --- LAYOUT DENSITY --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
         
-        section { padding: 12rem 0 8rem 0; border-bottom: var(--border-thin); position: relative; }
+        /* Tighter Spacing */
+        section { padding: 6rem 0 5rem 0; border-bottom: var(--border-thin); position: relative; }
         section.container {
-            padding-top: 12rem;
-            padding-bottom: 8rem;
+            padding-top: 6rem;
+            padding-bottom: 5rem;
+        }
+        /* Hero exception */
+        section.hero {
+            padding-top: 9rem;
+            padding-bottom: 6rem;
         }
 
         /* --- BUTTONS --- */
@@ -142,12 +148,6 @@
         /* --- SECTION: HERO --- */
         .hero { 
             text-align: center; 
-            padding-top: 10rem; 
-            padding-bottom: 6rem;
-        }
-        section.hero {
-            padding-top: 10rem;
-            padding-bottom: 6rem;
         }
 
         .hero-price { 
@@ -256,7 +256,6 @@
             height: 500px;
             overflow: hidden;
             background: #000;
-            /* Enhance touch handling */
             touch-action: pan-y;
         }
         .carousel-track {
@@ -300,7 +299,7 @@
         /* --- ORDER FORM --- */
         .order-section {
             background: #080808;
-            padding: 8rem 0;
+            padding: 6rem 0;
         }
         .order-container {
             max-width: 600px;
@@ -453,15 +452,24 @@
             .feature-row { grid-template-columns: 1fr 1fr; }
             .feature-row.reverse { direction: rtl; }
             .feature-row.reverse .feature-content { direction: ltr; }
+            
+            /* Desktop Persona Grid (2x2) */
+            .persona-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            
+            /* Desktop Assurance (3 cards) */
+            .assurance-inner {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         @media (max-width: 600px) {
             .form-row { grid-template-columns: 1fr; gap: 2rem; }
-            section, section.container { padding-top: 8rem; padding-bottom: 5rem; }
+            section, section.container { padding-top: 5rem; padding-bottom: 4rem; }
             h1 { font-size: 2.5rem; }
             .order-container { padding: 1.5rem; }
 
-            /* Mobile Cart Layout: Row 1 (Name - Price), Row 2 (Controls) */
             .cart-item {
                 flex-direction: column;
                 align-items: stretch;
@@ -473,18 +481,18 @@
                 align-items: center;
                 width: 100%;
             }
-            .item-name {
-                display: inline-block;
-                margin-bottom: 0;
-            }
             .qty-controls {
                 width: 100%;
                 justify-content: space-between;
                 padding: 0.5rem 1rem;
             }
-            .qty-btn {
-                width: 44px;
-                height: 44px;
+            
+            .persona-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .assurance-inner {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -523,6 +531,109 @@
             margin-bottom: 2rem;
             font-size: 0.9rem;
         }
+
+        /* --- NEW GRID STYLES (Persona + Assurance) --- */
+        
+        /* Shared Grid Look */
+        .bento-grid {
+            display: grid;
+            gap: 1px;
+            background: #222; /* Gap color */
+            border: 1px solid #222;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        /* Persona Cards */
+        .persona-card {
+            background: #080808;
+            padding: 2.5rem;
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: background 0.3s ease;
+        }
+        .persona-card:hover {
+            background: #0e0e0e;
+        }
+        .persona-idx {
+            font-family: var(--font-head);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #161616; /* Watermark style */
+            position: absolute;
+            top: 0.5rem;
+            right: 1.5rem;
+            line-height: 1;
+            z-index: 0;
+        }
+        .persona-text {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 1.3;
+            letter-spacing: 0.5px;
+            z-index: 1;
+            max-width: 90%;
+        }
+
+        /* Assurance Cards (Unified Look) */
+        .assurance-card {
+            background: #080808;
+            padding: 2.5rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .assurance-head {
+            font-family: var(--font-head);
+            color: #fff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .assurance-head::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 14px;
+            background: #fff;
+        }
+        .assurance-list {
+            list-style: none;
+            padding: 0;
+        }
+        .assurance-list li {
+            margin-bottom: 0.8rem;
+            color: #888;
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.5;
+        }
+        .assurance-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #444;
+        }
+        /* Special style for warranty points */
+        .warranty-highlight strong {
+            display: block;
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -531,7 +642,7 @@
     <section class="hero container">
         <span class="studio-kicker">Luko Studio Presents</span>
         <h1>The Bitcoin <br> Indicator Panel</h1>
-        <p class="subhead">A handmade crypto sculpture. Visualizing BTC/USDT price action in real-time.</p>
+        <p class="subhead">A handmade kinetic sculpture. Visualizing BTC/USDT price action in real-time.</p>
         
         <span class="hero-price">From 400 USDT • worldwide shipping included</span>
 
@@ -546,6 +657,32 @@
         </div>
 
         <img src="media/hero-bitcoin-panel.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
+    </section>
+
+    <!-- MADE FOR PEOPLE (REDESIGNED) -->
+    <section class="container text-center">
+        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Made For People Who<br>Live In The Market</h2>
+        
+        <div class="bento-grid persona-grid">
+            <div class="persona-card">
+                <div class="persona-idx">01</div>
+                <div class="persona-text">Constant awareness without opening charts</div>
+            </div>
+            <div class="persona-card">
+                <div class="persona-idx">02</div>
+                <div class="persona-text">A conversation starter in any room or office</div>
+            </div>
+            <div class="persona-card">
+                <div class="persona-idx">03</div>
+                <div class="persona-text">An aesthetic ambient gadget</div>
+            </div>
+            <div class="persona-card">
+                <div class="persona-idx">04</div>
+                <div class="persona-text">A status object: “I’m in the market”</div>
+            </div>
+        </div>
+
+        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #444; margin-top: 2rem;">Built in small batches for traders, founders, and crypto-native teams.</p>
     </section>
 
     <!-- DEMO -->
@@ -564,7 +701,7 @@
             <div class="how-step">
                 <span class="step-num">01 / POWER</span>
                 <h3>Initialize</h3>
-                <p>Mount the panel. Plug into any standard outlet (110V/220V). The LEDs pulse white.</p>
+                <p>Mount the panel. Plug into any standard outlet (110V/220V). The aura ring pulses white.</p>
             </div>
             <div class="how-step">
                 <span class="step-num">02 / CONNECT</span>
@@ -618,6 +755,55 @@
         </div>
         <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem; font-family: monospace;">
             DIA: 1000MM • WIFI: 2.4GHZ • INPUT: 5V DC • MOUNT: VESA COMPATIBLE
+        </div>
+    </section>
+
+    <!-- ENGINEERING & ASSURANCE (UNIFIED COLUMNS) -->
+    <section class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
+       <h2 style="margin-bottom: 3rem;">Engineering & Assurance</h2>
+       
+       <div class="bento-grid assurance-inner" style="margin-top: 0;">
+            <!-- Card 1: Power -->
+            <div class="assurance-card">
+                <div class="assurance-head">Power & Thermal</div>
+                <ul class="assurance-list">
+                    <li>Low power consumption (5V DC USB-C)</li>
+                    <li>Cold LED backlight technology</li>
+                    <li>No heat emission on outer surface</li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Logic -->
+            <div class="assurance-card">
+                <div class="assurance-head">Logic & Build</div>
+                <ul class="assurance-list">
+                    <li>Fully isolated logic board</li>
+                    <li>Fire-retardant internal composite</li>
+                    <li>Secure local-only Wi-Fi setup</li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Warranty -->
+            <div class="assurance-card">
+                <div class="assurance-head" style="color: var(--accent-white);">Warranty</div>
+                <div class="assurance-list warranty-highlight">
+                    <div style="color: #888; font-size: 0.9rem;">Included with every unit:</div>
+                    <strong>12 Months Structural</strong>
+                    <div style="height: 0.5rem;"></div>
+                    <strong>30 Days Electronics</strong>
+                </div>
+            </div>
+       </div>
+    </section>
+
+    <!-- IN THE BOX -->
+    <section class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
+        <h2>In The Box</h2>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 2rem; text-align: center;">
+            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Bitcoin Indicator Panel</div>
+            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Wall mount bracket</div>
+            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Power unit (Global)</div>
+            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Quick-connect Guide</div>
         </div>
     </section>
 
@@ -741,7 +927,7 @@
             </div>
             <div class="faq-item">
                 <div class="faq-q">Production Timeline</div>
-                <p>Each panel is handmade to order. Current production lead time is approximately 7 days.</p>
+                <p>Each panel is handmade to order. Current production lead time is approximately 14 days.</p>
             </div>
             <div class="faq-item">
                 <div class="faq-q">Shipping</div>
@@ -755,7 +941,13 @@
         <h3>Commissions</h3>
         <p>Corporate branding. Custom geometries. Large scale.</p>
         <img src="media/custom-panel.jpg" alt="Custom commissioned indicator panel concept" class="custom-img" style="width:100%; height:auto; margin-bottom:2rem; border:1px solid #222;">
-        <a href="mailto:studio@lukostudio.com" class="btn btn-secondary">Contact Luko Studio</a>
+        <a href="mailto:studio@lukostudio.shop" class="btn btn-secondary">Contact Luko Studio</a>
+    </section>
+
+    <!-- QUESTIONS -->
+    <section class="container text-center" style="padding: 6rem 0;">
+        <h3>Questions?</h3>
+        <p>If you have questions — write us at <a href="mailto:studio@lukostudio.shop" style="color: #fff; text-decoration: none;">studio@lukostudio.shop</a></p>
     </section>
 
     <footer>
