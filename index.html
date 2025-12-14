@@ -1017,6 +1017,44 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
+        // --- INPUT MASKS ---
+        const phoneInput = document.getElementById('phone');
+        const zipInput = document.getElementById('zip');
+
+        // Phone Mask logic
+        phoneInput.addEventListener('focus', () => {
+            if (phoneInput.value === '') phoneInput.value = '+';
+        });
+
+        phoneInput.addEventListener('blur', () => {
+            if (phoneInput.value === '+') phoneInput.value = '';
+        });
+
+        phoneInput.addEventListener('input', () => {
+            let val = phoneInput.value;
+            // Always ensure it starts with +
+            if (!val.startsWith('+')) {
+                val = '+' + val;
+            }
+            
+            // Allow + at index 0, then digits (0-9) and spaces (\s) only
+            // Filter all characters
+            const filtered = val.split('').filter((char, index) => {
+                if (index === 0) return char === '+';
+                return /[0-9\s]/.test(char);
+            });
+            
+            const newVal = filtered.join('');
+            if (phoneInput.value !== newVal) {
+                phoneInput.value = newVal;
+            }
+        });
+
+        // Zip Mask logic
+        zipInput.addEventListener('input', () => {
+             zipInput.value = zipInput.value.replace(/[^0-9\s]/g, '');
+        });
+
         window.addEventListener('load', () => {
             checkUrlStatus();
             // Initial render based on default values (usually 1 black, 0 gold)
@@ -1199,7 +1237,7 @@
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
+                phone: document.getElementById('phone').value.replace(/\D/g, ''), // CLEANED: Only digits
                 items: items, // Sending items, not total
                 address: {
                     line1: document.getElementById('address_line1').value,
