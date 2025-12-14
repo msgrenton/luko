@@ -446,6 +446,36 @@
             background: #000;
         }
 
+        /* --- BOX GRID --- */
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #222;
+            border: 1px solid #222;
+            width: 100%;
+        }
+        .box-item {
+            background: #080808;
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1; 
+            transition: background 0.2s;
+        }
+        .box-item:hover { background: #0f0f0f; }
+        .box-text {
+            color: #fff;
+            font-family: var(--font-head);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
         /* --- MEDIA QUERIES --- */
         @media (min-width: 768px) {
             h1 { font-size: 4.5rem; }
@@ -463,6 +493,8 @@
             .assurance-inner {
                 grid-template-columns: repeat(3, 1fr);
             }
+
+            .box-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
         @media (max-width: 600px) {
@@ -799,12 +831,20 @@
 
     <!-- IN THE BOX -->
     <section class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
-        <h2>In The Box</h2>
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap: 2rem; text-align: center;">
-            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Bitcoin Indicator Panel</div>
-            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Wall mount bracket</div>
-            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Global power unit</div>
-            <div style="border: 1px solid #222; padding: 2rem; width: 200px; display: flex; align-items: center; justify-content: center;">Quick-connect Guide</div>
+        <h2 style="margin-bottom: 3rem;">In The Box</h2>
+        <div class="box-grid">
+            <div class="box-item">
+                <span class="box-text">Bitcoin Indicator<br>Panel</span>
+            </div>
+            <div class="box-item">
+                <span class="box-text">Wall Mount<br>Bracket</span>
+            </div>
+            <div class="box-item">
+                <span class="box-text">Global Power<br>Unit</span>
+            </div>
+            <div class="box-item">
+                <span class="box-text">Quick-Connect<br>Guide</span>
+            </div>
         </div>
     </section>
 
