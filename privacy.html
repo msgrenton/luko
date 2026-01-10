@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Luko Studio</title>
+    <meta name="description" content="Privacy Policy for Luko Studio.">
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        header {
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        a.home-link {
+            font-family: var(--font-head);
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -1px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .policy-content {
+            padding: 4rem 0 6rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="home-link">LUKO STUDIO</a>
+        </div>
+    </header>
+
+    <section class="container policy-content">
+        <h1>Privacy Policy</h1>
+        
+        <p>Last updated: October 2023</p>
+
+        <p>At Luko Studio, we respect your privacy and are committed to protecting the personal information you share with us. This policy outlines how we collect, use, and safeguard your data.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We collect only the information necessary to process your order and deliver your product. This includes:</p>
+        <ul>
+            <li>Full Name</li>
+            <li>Shipping Address</li>
+            <li>Email Address</li>
+            <li>Phone Number</li>
+        </ul>
+        <p>We do <strong>not</strong> collect or store credit card details or bank account information. All payments are processed securely via cryptocurrency through our third-party provider, Plisio.</p>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>Your data is used solely for the following purposes:</p>
+        <ul>
+            <li>Processing and fulfilling your order.</li>
+            <li>Sending order confirmations and shipping updates.</li>
+            <li>Providing customer support regarding your purchase.</li>
+        </ul>
+
+        <h2>3. Data Sharing</h2>
+        <p>We do not sell, trade, or rent your personal identification information to others. We may share your shipping details with trusted logistics partners (such as FedEx, DHL, or UPS) strictly for the purpose of delivering your order.</p>
+
+        <h2>4. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:studio@lukostudio.shop" style="color: #fff;">studio@lukostudio.shop</a>.</p>
+    </section>
+
+    <footer>
+        <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
