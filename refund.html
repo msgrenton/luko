@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | Luko Studio</title>
+    <meta name="description" content="Refund Policy for Luko Studio.">
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        header {
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        a.home-link {
+            font-family: var(--font-head);
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -1px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .policy-content {
+            padding: 4rem 0 6rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="home-link">LUKO STUDIO</a>
+        </div>
+    </header>
+
+    <section class="container policy-content">
+        <h1>Refund Policy</h1>
+        
+        <h2>1. Returns & Cancellations</h2>
+        <p>Due to the bespoke, handmade nature of our products and the irreversible nature of cryptocurrency transactions, <strong>all sales are final</strong>. We generally do not accept returns for "change of mind" once an order has been processed.</p>
+        <p>Order cancellations may be requested within 24 hours of payment, provided production has not yet commenced. A cancellation fee covering network transaction costs may apply.</p>
+
+        <h2>2. Damaged or Defective Items</h2>
+        <p>We stand by the quality of our engineering. If your unit arrives damaged or exhibits a manufacturing defect:</p>
+        <ul>
+            <li>Please contact us at <a href="mailto:studio@lukostudio.shop" style="color:#fff;">studio@lukostudio.shop</a> within <strong>7 days</strong> of delivery.</li>
+            <li>Include your order number and clear photos/videos of the issue.</li>
+        </ul>
+        <p>If the defect is verified, we will arrange for a repair, replacement part, or a replacement unit at no cost to you.</p>
+
+        <h2>3. Warranty</h2>
+        <p>Every Bitcoin Indicator Panel includes:</p>
+        <ul>
+            <li><strong>12-Month Structural Warranty:</strong> Covers the wood core, frame, and physical assembly.</li>
+            <li><strong>30-Day Electronics Warranty:</strong> Covers the logic board, LEDs, and power components.</li>
+        </ul>
+        <p>This warranty does not cover damage caused by misuse, improper installation, or unauthorized modification.</p>
+    </section>
+
+    <footer>
+        <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
