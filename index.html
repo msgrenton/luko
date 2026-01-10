@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin Indicator Panel | Luko Studio</title>
     <meta name="description" content="Handmade Bitcoin wall panel. Visualizes BTC/USDT price action in real-time. Designed by Luko Studio.">
-
     <link rel="canonical" href="https://lukostudio.shop/">
     <meta name="robots" content="index, follow">
-
 
     <!-- Open Graph / Social -->
     <meta property="og:title" content="Bitcoin Indicator Panel | Luko Studio">
     <meta property="og:description" content="Handmade Bitcoin wall sculpture reacting to BTC/USDT price in real time.">
-    <meta property="og:url" content="https://lukostudio.shop/">
     <meta property="og:image" content="https://lukostudio.shop/media/og-bitcoin-panel.jpg">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lukostudio.shop/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://lukostudio.shop/media/og-bitcoin-panel.jpg">
 
@@ -452,8 +450,27 @@
             color: #444;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
             background: #000;
+        }
+        
+        .footer-links {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
         }
 
         /* --- BOX GRID --- */
@@ -1022,13 +1039,23 @@
         <a href="mailto:studio@lukostudio.shop" class="btn btn-secondary">Contact Luko Studio</a>
     </section>
 
-    <!-- QUESTIONS -->
+    <!-- QUESTIONS & COMMUNITY -->
     <section class="container text-center" style="padding: 6rem 0;">
-        <h3>Questions?</h3>
-        <p>If you have questions — write us at <a href="mailto:studio@lukostudio.shop" style="color: #fff; text-decoration: none;">studio@lukostudio.shop</a></p>
+        <h3>Community & Support</h3>
+        <p style="margin-bottom: 2rem;">
+            If you have questions — write us at <a href="mailto:studio@lukostudio.shop" style="color: #fff; text-decoration: none;">studio@lukostudio.shop</a><br>
+            Or join the discussion about our production process on Reddit.
+        </p>
+        <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-secondary">Visit on Reddit</a>
     </section>
 
     <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="refund.html">Refunds</a>
+            <a href="shipping.html">Shipping</a>
+        </div>
         <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
     </footer>
 
