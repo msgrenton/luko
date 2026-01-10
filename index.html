@@ -372,7 +372,12 @@
             display: block; 
             font-weight: 600; 
         }
-        .item-price { font-size: 0.8rem; color: #666; }
+        .item-sub {
+            font-size: 0.75rem;
+            color: #888;
+            margin-left: 0.5rem;
+        }
+        .item-price { font-size: 0.8rem; color: #666; display: block; margin-top: 0.2rem;}
         
         .qty-controls {
             display: flex;
@@ -675,9 +680,9 @@
     <section class="hero container">
         <span class="studio-kicker">LUKO STUDIO PRESENTS</span>
         <h1>THE BITCOIN<br>INDICATOR PANEL</h1>
-        <p class="subhead">A live ambient signal of BTC price action.</p>
+        <p class="subhead">A live ambient signal of BTC price action. The panel breathes, changing color in real-time to reflect Bitcoin's performance across multiple timeframes.</p>
         
-        <span class="hero-price">From 400 USDT • worldwide shipping included</span>
+        <span class="hero-price">From 750 USDT • worldwide shipping included</span>
 
         <div class="variant-selector" id="hero-variant-selector">
             <div class="variant-opt active" data-value="Black Edition">Black Edition</div>
@@ -689,7 +694,7 @@
             <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">View Demo</button>
         </div>
 
-        <img src="media/hero-bitcoin-panel.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
+        <img src="media/hero-bitcoin-panel-black.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
     </section>
 
     <!-- MADE FOR PEOPLE (REDESIGNED) -->
@@ -787,7 +792,7 @@
             </div>
         </div>
         <div style="text-align: center; margin-top: 3rem; color: #444; font-size: 0.8rem; font-family: monospace;">
-            DIA: 1000MM • WIFI: 2.4GHZ • INPUT: 5V DC • MOUNT: VESA COMPATIBLE
+            DIA: 500MM / 800MM • WIFI: 2.4GHZ • INPUT: 5V DC • MOUNT: VESA COMPATIBLE
         </div>
     </section>
 
@@ -863,26 +868,53 @@
                     <div class="form-group">
                         <label>Select Allocation</label>
                         <div class="cart-section">
+                            <!-- Black Edition 50cm -->
                             <div class="cart-item">
                                 <div class="item-info">
-                                    <span class="item-name">Black Edition</span>
-                                    <span class="item-price">400 USDT</span>
+                                    <span class="item-name">Black Edition <span class="item-sub">50 CM</span></span>
+                                    <span class="item-price">750 USDT</span>
                                 </div>
                                 <div class="qty-controls">
-                                    <button type="button" class="qty-btn" onclick="updateItemQty('black', -1)">−</button>
-                                    <input type="number" id="qty_black" class="qty-val" value="1" min="0" max="10" readonly>
-                                    <button type="button" class="qty-btn" onclick="updateItemQty('black', 1)">+</button>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black_50', -1)">−</button>
+                                    <input type="number" id="qty_black_50" class="qty-val" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black_50', 1)">+</button>
                                 </div>
                             </div>
+                            <!-- Black Edition 80cm -->
                             <div class="cart-item">
                                 <div class="item-info">
-                                    <span class="item-name">Gold Edition</span>
-                                    <span class="item-price">600 USDT</span>
+                                    <span class="item-name">Black Edition <span class="item-sub">80 CM</span></span>
+                                    <span class="item-price">1150 USDT</span>
                                 </div>
                                 <div class="qty-controls">
-                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold', -1)">−</button>
-                                    <input type="number" id="qty_gold" class="qty-val" value="0" min="0" max="10" readonly>
-                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold', 1)">+</button>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black_80', -1)">−</button>
+                                    <input type="number" id="qty_black_80" class="qty-val" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('black_80', 1)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Gold Edition 50cm -->
+                            <div class="cart-item">
+                                <div class="item-info">
+                                    <span class="item-name">Gold Edition <span class="item-sub">50 CM</span></span>
+                                    <span class="item-price">950 USDT</span>
+                                </div>
+                                <div class="qty-controls">
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold_50', -1)">−</button>
+                                    <input type="number" id="qty_gold_50" class="qty-val" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold_50', 1)">+</button>
+                                </div>
+                            </div>
+                             <!-- Gold Edition 80cm -->
+                             <div class="cart-item">
+                                <div class="item-info">
+                                    <span class="item-name">Gold Edition <span class="item-sub">80 CM</span></span>
+                                    <span class="item-price">1350 USDT</span>
+                                </div>
+                                <div class="qty-controls">
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold_80', -1)">−</button>
+                                    <input type="number" id="qty_gold_80" class="qty-val" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="qty-btn" onclick="updateItemQty('gold_80', 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -948,7 +980,7 @@
 
                     <div class="total-display">
                         <span class="total-label">Estimated Total</span>
-                        <span id="finalPrice">400.00 USDT</span>
+                        <span id="finalPrice">0.00 USDT</span>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Proceed to Crypto Payment</button>
@@ -1038,9 +1070,11 @@
                 text.textContent = 'Thank you. Your payment has been detected. We will begin production immediately. Please check your email for confirmation.';
                 
                 // Reset cart visuals
-                document.getElementById('qty_black').value = 0;
-                document.getElementById('qty_gold').value = 0;
-                renderEmptyState(); // Sync to 0
+                document.getElementById('qty_black_50').value = 0;
+                document.getElementById('qty_black_80').value = 0;
+                document.getElementById('qty_gold_50').value = 0;
+                document.getElementById('qty_gold_80').value = 0;
+                renderEmptyState(); 
             } else if (status === 'fail') {
                 modal.style.display = 'flex';
                 title.textContent = 'Payment Failed';
@@ -1098,7 +1132,7 @@
 
         window.addEventListener('load', () => {
             checkUrlStatus();
-            // Initial render based on default values (usually 1 black, 0 gold)
+            // Initial render 
             if (getTotalQuantity() > 0) {
                 fetchPreview();
             } else {
@@ -1106,7 +1140,7 @@
             }
         });
 
-        // HERO VARIANT UI
+        // HERO VARIANT UI (IMAGE & TEXT SWITCHER)
         document.querySelectorAll('.variant-opt').forEach(opt => {
             opt.addEventListener('click', function() {
                 document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
@@ -1114,10 +1148,14 @@
 
                 const val = this.getAttribute('data-value');
                 const priceEl = document.querySelector('.hero-price');
+                const heroImg = document.querySelector('.hero-img');
+
                 if (val === 'Black Edition') {
-                    priceEl.textContent = 'Black Edition — 400 USDT • worldwide shipping included';
+                    priceEl.textContent = 'From 750 USDT • worldwide shipping included';
+                    heroImg.src = 'media/hero-bitcoin-panel-black.jpg';
                 } else if (val === 'Gold Edition') {
-                    priceEl.textContent = 'Gold Edition — 600 USDT • worldwide shipping included';
+                    priceEl.textContent = 'From 950 USDT • worldwide shipping included';
+                    heroImg.src = 'media/hero-bitcoin-panel-gold.jpg';
                 }
             });
         });
@@ -1127,18 +1165,24 @@
         let debounceTimer;
 
         function getTotalQuantity() {
-            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
-            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
-            return qtyBlack + qtyGold;
+            const qB50 = parseInt(document.getElementById('qty_black_50').value) || 0;
+            const qB80 = parseInt(document.getElementById('qty_black_80').value) || 0;
+            const qG50 = parseInt(document.getElementById('qty_gold_50').value) || 0;
+            const qG80 = parseInt(document.getElementById('qty_gold_80').value) || 0;
+            return qB50 + qB80 + qG50 + qG80;
         }
 
         function getItemsFromDOM() {
-            const qtyBlack = parseInt(document.getElementById('qty_black').value) || 0;
-            const qtyGold = parseInt(document.getElementById('qty_gold').value) || 0;
+            const qB50 = parseInt(document.getElementById('qty_black_50').value) || 0;
+            const qB80 = parseInt(document.getElementById('qty_black_80').value) || 0;
+            const qG50 = parseInt(document.getElementById('qty_gold_50').value) || 0;
+            const qG80 = parseInt(document.getElementById('qty_gold_80').value) || 0;
             
             const items = [];
-            if (qtyBlack > 0) items.push({ variant: 'Black Edition', quantity: qtyBlack });
-            if (qtyGold > 0) items.push({ variant: 'Gold Edition', quantity: qtyGold });
+            if (qB50 > 0) items.push({ variant: 'Black Edition 50cm', quantity: qB50 });
+            if (qB80 > 0) items.push({ variant: 'Black Edition 80cm', quantity: qB80 });
+            if (qG50 > 0) items.push({ variant: 'Gold Edition 50cm', quantity: qG50 });
+            if (qG80 > 0) items.push({ variant: 'Gold Edition 80cm', quantity: qG80 });
             
             return items;
         }
