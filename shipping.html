@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Policy | Luko Studio</title>
+    <meta name="description" content="Shipping Policy for Luko Studio.">
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        header {
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        a.home-link {
+            font-family: var(--font-head);
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -1px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .policy-content {
+            padding: 4rem 0 6rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="home-link">LUKO STUDIO</a>
+        </div>
+    </header>
+
+    <section class="container policy-content">
+        <h1>Shipping Policy</h1>
+        
+        <h2>1. Global Shipping</h2>
+        <p>We are proud to offer worldwide shipping. For simplicity and transparency, <strong>shipping costs are included</strong> in the displayed price of the unit. There are no surprise fees added at checkout.</p>
+
+        <h2>2. Processing & Lead Times</h2>
+        <p>The Bitcoin Indicator Panel is a handmade product. Please note the following timelines:</p>
+        <ul>
+            <li><strong>Production:</strong> ~7 days from order confirmation.</li>
+            <li><strong>Transit:</strong> Varies by destination (typically 5-10 business days for international orders).</li>
+        </ul>
+        <p>You will receive an email confirmation when your order is placed, and a second email with tracking information once your unit has been dispatched.</p>
+
+        <h2>3. Customs & Duties</h2>
+        <p>Please be aware that international shipments may be subject to import taxes, customs duties, and fees levied by the destination country's customs department.</p>
+        <p>Luko Studio has no control over these charges. <strong>The recipient is the importer of record and must comply with all laws and regulations of the destination country.</strong> Any additional charges for customs clearance must be fulfilled by the recipient.</p>
+    </section>
+
+    <footer>
+        <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
