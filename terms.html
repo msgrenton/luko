@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Luko Studio</title>
+    <meta name="description" content="Terms of Service for Luko Studio.">
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            font-size: 16px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        header {
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        a.home-link {
+            font-family: var(--font-head);
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: -1px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .policy-content {
+            padding: 4rem 0 6rem 0;
+        }
+
+        h1 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+            font-weight: 300;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            color: #ccc;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        footer {
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #444;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="home-link">LUKO STUDIO</a>
+        </div>
+    </header>
+
+    <section class="container policy-content">
+        <h1>Terms of Service</h1>
+        
+        <p>By accessing this website and purchasing products from Luko Studio, you agree to be bound by the following terms and conditions.</p>
+
+        <h2>1. Product Usage & Disclaimer</h2>
+        <p>The Bitcoin Indicator Panel is designed and sold as an ambient art installation and visualization device. While it utilizes real-time market data, it is not a professional financial tool.</p>
+        <p>Luko Studio is not responsible for any financial decisions made based on the visual data displayed by the panel. Cryptocurrency markets are volatile; please trade responsibly.</p>
+
+        <h2>2. Payments</h2>
+        <p>All prices are listed in USDT (Tether). We accept payments via Bitcoin, Ethereum, USDT, and USDC through our secure payment processor, Plisio.</p>
+        <p>Due to the nature of blockchain transactions, all payments are final. You are responsible for ensuring the correct network and address are used during transfer. Luko Studio cannot recover funds sent to incorrect addresses.</p>
+
+        <h2>3. Production & Availability</h2>
+        <p>Our products are handmade in small batches. While we strive to maintain stock, availability is subject to production capacity. Estimated shipping times are provided at checkout but may vary.</p>
+
+        <h2>4. Governing Law</h2>
+        <p>These terms are governed by and construed in accordance with international e-commerce regulations.</p>
+    </section>
+
+    <footer>
+        <p>Designed & Built by Luko Studio &copy; <span id="current-year"></span></p>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
