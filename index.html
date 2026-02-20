@@ -165,6 +165,16 @@
             background: rgba(255,255,255,0.05);
         }
 
+        /* Pulsing Button Animation */
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        .btn-pulse {
+            animation: pulse-btn 2s infinite;
+        }
+
         /* --- SECTION: HERO --- */
         .hero { 
             text-align: center; 
@@ -861,7 +871,10 @@
         <div class="container text-center">
             <h2>Live Reaction to Bitcoin Price Movement</h2>
             <div class="demo-content">
-                <p class="subhead">Real-Time. No Delay.</p>
+                <p class="subhead">
+                    Real-Time. No Delay.<br>
+                    <span style="font-size: 0.9rem; color: #666; font-weight: 400; display: block; margin-top: 0.5rem;">Simply choose your timeframe during setup.</span>
+                </p>
                 <video class="demo-media" autoplay loop muted playsinline poster="media/poster_reaction.png">
                     <source src="media/live_reaction.mp4" type="video/mp4">
                     Your browser does not support the video tag.
@@ -925,6 +938,10 @@
         </div>
 
         <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #444; margin-top: 2rem;">Built in small batches for traders, founders, and crypto-native teams.</p>
+        
+        <div style="margin-top: 2.5rem;">
+            <button class="btn btn-primary btn-pulse" onclick="scrollToOrder()">Get Yours</button>
+        </div>
     </section>
 
     <!-- FEATURES -->
@@ -941,7 +958,7 @@
                 <img src="media/feature-texture.jpg" alt="Macro detail of the panel surface and lighting" class="feature-img">
                 <div class="feature-content">
                     <h3>Industrial Craft</h3>
-                    <p>Engineered with a solid wood core, matte architectural coating, and a hand-soldered ESP32 logic board. Rigid and durable.</p>
+                    <p>Engineered with a solid core, matte architectural coating, and a hand-soldered ESP32 logic board. Rigid and durable.</p>
                 </div>
             </div>
         </div>
@@ -1128,8 +1145,8 @@
                                 <input type="text" id="city" name="city" required>
                             </div>
                             <div class="form-group">
-                                <label for="zip">Postal Code</label>
-                                <input type="text" id="zip" name="zip" required>
+                                <label for="zip">Postal Code (Optional)</label>
+                                <input type="text" id="zip" name="zip">
                             </div>
                         </div>
 
@@ -1222,7 +1239,7 @@
         <div style="background: var(--bg-surface); border: var(--border-thin); padding: 4rem 2rem; text-align: center;">
             <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Join The Community</h2>
             <p style="max-width: 600px; margin: 0 auto 2.5rem auto; color: var(--text-muted); font-size: 1rem;">
-                We are excited to welcome you to our Reddit community. Watch the production process—from engineering to assembly—and join the discussion.
+                Share your setup. See how others use it. We are excited to welcome you to our Reddit community. Watch the production process—from engineering to assembly—and join the discussion.
             </p>
             <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-primary" style="padding: 1rem 2rem;">
                 Visit r/BTCindicatorpanel
@@ -1351,7 +1368,7 @@
                 return qty > 0;
             }
             if (step === 2) {
-                const reqIds = ['name', 'country', 'city', 'zip', 'address_line1', 'phone', 'email'];
+                const reqIds = ['name', 'country', 'city', 'address_line1', 'phone', 'email'];
                 let valid = true;
                 reqIds.forEach(id => {
                     const el = document.getElementById(id);
@@ -1583,13 +1600,13 @@
                 document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
                 this.classList.add('active');
                 const val = this.getAttribute('data-value');
-                const priceEl = document.querySelector('.hero-price');
+                // Removed priceEl selection as price no longer changes
                 const heroImg = document.querySelector('.hero-img');
                 if (val === 'Black Edition') {
-                    priceEl.textContent = 'From 750 USDT • worldwide shipping included';
+                    // Removed priceEl.textContent update
                     heroImg.src = 'media/hero-bitcoin-panel-black.jpg';
                 } else if (val === 'Gold Edition') {
-                    priceEl.textContent = 'From 950 USDT • worldwide shipping included';
+                     // Removed priceEl.textContent update
                     heroImg.src = 'media/hero-bitcoin-panel-gold.jpg';
                 }
             });
