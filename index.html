@@ -1217,6 +1217,19 @@
         </div>
     </section>
 
+    <!-- JOIN COMMUNITY (RESTORED LOCATION & DESIGN) -->
+    <section class="container" style="padding: 6rem 0;">
+        <div style="background: var(--bg-surface); border: var(--border-thin); padding: 4rem 2rem; text-align: center;">
+            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Join The Community</h2>
+            <p style="max-width: 600px; margin: 0 auto 2.5rem auto; color: var(--text-muted); font-size: 1rem;">
+                We are excited to welcome you to our Reddit community. Watch the production process—from engineering to assembly—and join the discussion.
+            </p>
+            <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-primary" style="padding: 1rem 2rem;">
+                Visit r/BTCindicatorpanel
+            </a>
+        </div>
+    </section>
+
     <!-- FAQ -->
     <section id="faq" class="container">
         <h2>Q&A</h2>
@@ -1266,19 +1279,6 @@
         <p>
             If you have questions — write us at <a href="mailto:studio@lukostudio.shop" style="color: #fff; text-decoration: none;">studio@lukostudio.shop</a>
         </p>
-    </section>
-
-    <!-- COMMUNITY (Bottom) -->
-     <section class="container" style="padding: 2rem 0; border-top: var(--border-thin);">
-        <div style="text-align: center;">
-            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Join The Community</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.9rem;">
-                Watch the production process and join the discussion.
-            </p>
-            <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-secondary" style="padding: 0.8rem 1.5rem;">
-                Join r/BTCindicatorpanel
-            </a>
-        </div>
     </section>
 
     <footer>
@@ -1362,12 +1362,18 @@
                         el.style.borderBottomColor = '#333';
                     }
                 });
-                // Basic Email regex
-                const email = document.getElementById('email').value;
-                if (email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
-                    document.getElementById('email').style.borderBottomColor = 'var(--error)';
+                
+                // Email Validation (Corrected regex for literals and trim)
+                const emailEl = document.getElementById('email');
+                const emailVal = emailEl.value.trim(); // Trim trailing spaces from paste
+                
+                // Basic check: not empty & matches simplified email pattern
+                // Use standard regex literal without double escaping backslashes for whitespace
+                if (emailVal && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+                    emailEl.style.borderBottomColor = 'var(--error)';
                     valid = false;
                 }
+                
                 return valid;
             }
             return true;
