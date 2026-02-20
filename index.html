@@ -657,6 +657,14 @@
                 align-items: center;
                 width: 100%;
             }
+            
+            /* -- CHANGE: Mobile item sub styling -- */
+            .item-sub {
+                display: block;
+                margin-left: 0;
+                margin-top: 0.2rem;
+            }
+            
             .qty-controls {
                 width: 100%;
                 justify-content: space-between;
@@ -817,27 +825,35 @@
     <section class="hero container">
         <span class="studio-kicker">LUKO STUDIO PRESENTS</span>
         <h1>See Bitcoin Move.<br>Instantly.<br>Without Charts.</h1>
-        <p class="subhead">A physical Bitcoin indicator panel that reacts to live market data in real time — built for traders, holders, and serious crypto believers.</p>
-        
-        <ul class="hero-list" style="display: inline-block; text-align: left; margin-bottom: 2.5rem;">
-            <li>Real-time BTC movement at a glance</li>
-            <li>No apps. No noise. No distractions</li>
-            <li>Precision laser-cut composite structure with matte industrial finish</li>
-        </ul>
 
-        <span class="hero-price">From 750 USDT • worldwide shipping included</span>
-
-        <div class="variant-selector" id="hero-variant-selector">
+        <!-- Variant Selector Moved -->
+        <div class="variant-selector" id="hero-variant-selector" style="margin-bottom: 2rem;">
             <div class="variant-opt active" data-value="Black Edition">Black Edition</div>
             <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
         </div>
+
+        <!-- Hero Image Moved -->
+        <img src="media/hero-bitcoin-panel-black.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img" style="margin-top: 0; margin-bottom: 3rem;">
+        
+        <!-- Formatted Description Block -->
+        <div class="hero-text-block" style="max-width: 600px; margin: 0 auto 2rem auto; text-align: center;">
+            <p class="subhead" style="font-size: 1.2rem; color: #fff; font-weight: 500; margin-bottom: 2rem; line-height: 1.5;">
+                A physical Bitcoin indicator panel that reacts to live market data in real time — built for traders, holders, and serious crypto believers.
+            </p>
+            
+            <ul class="hero-list" style="display: inline-block; text-align: left; margin-bottom: 0; color: #aaa;">
+                <li>Real-time BTC movement at a glance</li>
+                <li>No apps. No noise. No distractions</li>
+                <li>Precision laser-cut composite structure with matte industrial finish</li>
+            </ul>
+        </div>
+
+        <span class="hero-price" style="margin-top: 2rem;">From 750 USDT • worldwide shipping included</span>
         
         <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button class="btn btn-primary" onclick="scrollToOrder()">Order Now</button>
             <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Watch It Live</button>
         </div>
-
-        <img src="media/hero-bitcoin-panel-black.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
     </section>
 
     <!-- LIVE REACTION -->
@@ -1023,7 +1039,7 @@
                     <div class="wizard-progress">
                         <div class="progress-header">
                             <span id="step-label">Step 1 / 3 — Configuration</span>
-                            <span id="step-pct">33%</span>
+                            <!-- Removed percentage display -->
                         </div>
                         <div class="progress-track">
                             <div class="progress-fill" id="progress-fill"></div>
@@ -1311,7 +1327,7 @@
             // Update Progress
             const pct = Math.round((currentStep / totalSteps) * 100);
             document.getElementById('progress-fill').style.width = `${pct}%`;
-            document.getElementById('step-pct').textContent = `${pct}%`;
+            // Removed percentage update logic
 
             // Update Label
             const labels = ["Configuration", "Shipping Details", "Confirm & Pay"];
@@ -1348,7 +1364,7 @@
                 });
                 // Basic Email regex
                 const email = document.getElementById('email').value;
-                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                if (email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
                     document.getElementById('email').style.borderBottomColor = 'var(--error)';
                     valid = false;
                 }
