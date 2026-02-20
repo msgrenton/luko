@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitcoin Indicator Panel | Luko Studio</title>
-    <meta name="description" content="Handmade Bitcoin wall panel. Visualizes BTC/USDT price action in real-time. Designed by Luko Studio.">
+    <meta name="description" content="Handmade Bitcoin wall panels. Visualizing BTC/USDT price action in real-time. Designed by Luko Studio.">
     <link rel="canonical" href="https://lukostudio.shop/">
     <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Social -->
     <meta property="og:title" content="Bitcoin Indicator Panel | Luko Studio">
-    <meta property="og:description" content="Handmade Bitcoin wall sculpture reacting to BTC/USDT price in real time.">
+    <meta property="og:description" content="Handmade Bitcoin wall sculptures reacting to BTC/USDT price in real time.">
     <meta property="og:image" content="https://lukostudio.shop/media/og-bitcoin-panel.jpg">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://lukostudio.shop/">
@@ -100,6 +100,9 @@
         p { margin-bottom: 1.5rem; color: var(--text-muted); font-weight: 300; font-size: 0.95rem; }
         
         .subhead { font-size: 1.1rem; max-width: 500px; margin: 0 auto 2rem auto; color: #999; }
+        .hero-list { list-style: none; padding: 0; margin-bottom: 2rem; }
+        .hero-list li { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .hero-list li::before { content: '•'; color: var(--text-main); margin-right: 0.5rem; }
 
         .text-center { text-align: center; }
 
@@ -134,6 +137,7 @@
             cursor: pointer;
             border: 1px solid transparent;
             font-size: 0.8rem;
+            background: none;
         }
         
         .btn-primary {
@@ -143,6 +147,12 @@
         .btn-primary:hover {
             background: #e0e0e0;
             transform: translateY(-1px);
+        }
+        .btn-primary:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-secondary {
@@ -207,7 +217,7 @@
         /* --- DEMO --- */
         .demo-media {
             width: 100%;
-            height: 700px; /* Default/Mobile base height, overridden in desktop media query */
+            height: 700px;
             border: var(--border-thin);
             object-fit: cover;
         }
@@ -218,28 +228,33 @@
             align-items: center;
         }
 
-        /* --- HOW IT WORKS --- */
-        .how-grid {
+        /* --- COMPARISON --- */
+        .comparison-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1px;
-            background: #222;
-            border: 1px solid #222;
+            gap: 2rem;
             margin-top: 3rem;
         }
-        .how-step {
+        .comp-col {
             background: var(--bg-surface);
-            padding: 3rem 2rem;
-            position: relative;
+            padding: 2rem;
+            border: var(--border-thin);
         }
-        .step-num {
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            color: #444;
-            display: block;
-            margin-bottom: 1rem;
+        .comp-head {
+            font-family: var(--font-head);
             font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 1rem;
         }
+        .comp-list { list-style: none; }
+        .comp-list li { margin-bottom: 1rem; font-size: 0.9rem; color: #888; position: relative; padding-left: 1.5rem; }
+        .comp-list.bad li::before { content: '×'; position: absolute; left: 0; color: #444; font-weight: bold;}
+        .comp-list.good li::before { content: '✓'; position: absolute; left: 0; color: #fff; font-weight: bold;}
+        .comp-list.good li { color: #ccc; }
+
 
         /* --- FEATURES --- */
         .feature-split {
@@ -312,7 +327,7 @@
         .nav-btn:first-child { border-right: 1px solid #222; }
         .nav-btn:hover { background: #fff; color: #000; }
 
-        /* --- ORDER FORM --- */
+        /* --- ORDER FORM WIZARD --- */
         .order-section {
             background: #080808;
             padding: 6rem 0;
@@ -322,16 +337,114 @@
             margin: 0 auto;
             background: var(--bg-surface);
             border: var(--border-thin);
-            padding: 3rem;
+            padding: 2rem; /* Mobile first padding */
         }
 
-        .form-group { margin-bottom: 2rem; text-align: left; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        /* Progress Bar */
+        .wizard-progress {
+            margin-bottom: 2.5rem;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-head);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .progress-track {
+            width: 100%;
+            height: 2px;
+            background: #222;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #fff;
+            width: 33%;
+            transition: width 0.3s ease;
+        }
+
+        /* Steps */
+        .wizard-step { display: none; }
+        .wizard-step.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Cart Items in Wizard */
+        .cart-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #222;
+        }
+        .cart-item:last-child { border-bottom: none; }
+        .item-info { flex-grow: 1; }
+        .item-name { 
+            font-family: var(--font-head); 
+            font-size: 0.85rem; 
+            color: #fff; 
+            display: block; 
+            font-weight: 600; 
+        }
+        .item-sub {
+            font-size: 0.7rem;
+            color: #888;
+            margin-left: 0.3rem;
+            white-space: nowrap;
+        }
+        .item-price { font-size: 0.8rem; color: #666; display: block; margin-top: 0.2rem;}
+        
+        .qty-controls {
+            display: flex;
+           	align-items: center;
+            gap: 0.5rem;
+            background: #111;
+            padding: 0.2rem;
+            border: 1px solid #333;
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .qty-btn:hover { background: #222; }
+        .qty-val {
+            width: 24px;
+            text-align: center;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            border: none;
+            background: transparent;
+        }
+        .qty-val::-webkit-inner-spin-button, .qty-val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* Form Fields */
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
         .form-row .form-group { margin-bottom: 0; }
         
         label {
             display: block; 
-            margin-bottom: 0.8rem; 
+            margin-bottom: 0.5rem; 
             color: #666; 
             font-size: 0.7rem; 
             text-transform: uppercase; 
@@ -356,100 +469,63 @@
         }
         input::placeholder, textarea::placeholder { color: #333; }
 
-        .crypto-notice {
-            margin-bottom: 2.5rem;
-            font-size: 0.8rem;
-            color: #aaa;
-            background: rgba(255,255,255,0.03);
-            padding: 1rem;
-            border: 1px solid #222;
+        /* Wizard Footer / Navigation */
+        .wizard-footer {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .live-total-bar {
+            border-top: 1px solid #222;
+            padding-top: 1.5rem;
             text-align: center;
-        }
-
-        .cart-section {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid #222;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .cart-item {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #222;
         }
-        .cart-item:last-child { border-bottom: none; }
-        .item-info { flex-grow: 1; }
-        .item-name { 
-            font-family: var(--font-head); 
-            font-size: 0.9rem; 
-            color: #fff; 
-            display: block; 
-            font-weight: 600; 
-        }
-        .item-sub {
-            font-size: 0.75rem;
-            color: #888;
-            margin-left: 0.5rem;
-            white-space: nowrap;
-        }
-        .item-price { font-size: 0.8rem; color: #666; display: block; margin-top: 0.2rem;}
-        
-        .qty-controls {
-            display: flex;
-           	align-items: center;
-            gap: 1rem;
-            background: #111;
-            padding: 0.3rem;
-            border: 1px solid #333;
-        }
-        .qty-btn {
-            width: 32px;
-            height: 32px;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .qty-btn:hover { background: #222; }
-        .qty-val {
-            width: 30px;
-            text-align: center;
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 1rem;
-            color: #fff;
-            border: none;
-            background: transparent;
-        }
-        .qty-val::-webkit-inner-spin-button, .qty-val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .live-total-label { font-size: 0.8rem; color: #666; }
 
-        .total-display {
-            text-align: center;
-            font-family: var(--font-head);
-            font-size: 1.4rem;
-            margin: 2rem 0 1rem 0;
-            padding: 1.5rem 0;
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #222;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        /* Step 3 Summary */
+        .summary-box {
+            background: #111;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            border: 1px solid #222;
         }
-        .total-label {
-            font-size: 0.75rem;
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .summary-line.highlight {
+            color: #fff;
+            font-weight: 600;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+            font-size: 1.1rem;
+        }
+        .shipping-preview {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .terms-check {
+            font-size: 0.7rem;
             color: #666;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-top: 1rem;
+            text-align: center;
+            line-height: 1.4;
         }
 
         /* --- FAQ --- */
@@ -520,7 +596,6 @@
         /* --- MEDIA QUERIES --- */
         @media (min-width: 768px) {
             h1 { font-size: 4.5rem; }
-            .how-grid { grid-template-columns: repeat(3, 1fr); }
             .feature-row { grid-template-columns: 1fr 1fr; }
             .feature-row.reverse { direction: rtl; }
             .feature-row.reverse .feature-content { direction: ltr; }
@@ -545,11 +620,10 @@
             }
             
             #demo .demo-media {
-                width: 480px; /* Approximately 4x smaller in area compared to full hero */
+                width: 480px; 
                 height: auto;
                 aspect-ratio: 16/9;
                 object-fit: cover;
-                /* Resetting the default height */
             }
 
             #demo .subhead {
@@ -557,14 +631,21 @@
                 margin: 0;
                 max-width: 320px;
             }
+
+            /* Comparison Grid Desktop */
+            .comparison-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Wizard Desktop */
+            .order-container { padding: 3rem; }
+            .form-row { grid-template-columns: 1fr 1fr; }
         }
 
         @media (max-width: 600px) {
-            .form-row { grid-template-columns: 1fr; gap: 2rem; }
             section, section.container { padding-top: 5rem; padding-bottom: 4rem; }
             h1 { font-size: 2.5rem; }
-            .order-container { padding: 1.5rem; }
-
+            
             .cart-item {
                 flex-direction: column;
                 align-items: stretch;
@@ -582,13 +663,8 @@
                 padding: 0.5rem 1rem;
             }
             
-            .persona-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .assurance-inner {
-                grid-template-columns: 1fr;
-            }
+            .persona-grid { grid-template-columns: 1fr; }
+            .assurance-inner { grid-template-columns: 1fr; }
             
             /* Make demo video horizontal on mobile */
             .demo-media {
@@ -634,8 +710,6 @@
         }
 
         /* --- NEW GRID STYLES (Persona + Assurance) --- */
-        
-        /* Shared Grid Look */
         .bento-grid {
             display: grid;
             gap: 1px;
@@ -682,7 +756,7 @@
             max-width: 90%;
         }
 
-        /* Assurance Cards (Unified Look) */
+        /* Assurance Cards */
         .assurance-card {
             background: #080808;
             padding: 2.5rem;
@@ -742,9 +816,15 @@
     <!-- HERO -->
     <section class="hero container">
         <span class="studio-kicker">LUKO STUDIO PRESENTS</span>
-        <h1>THE BITCOIN<br>INDICATOR WALL PANEL</h1>
-        <p class="subhead">A live ambient signal of BTC price action. The panel breathes, changing color in real-time to reflect Bitcoin's performance across multiple timeframes.</p>
+        <h1>See Bitcoin Move.<br>Instantly.<br>Without Charts.</h1>
+        <p class="subhead">A physical Bitcoin indicator panel that reacts to live market data in real time — built for traders, holders, and serious crypto believers.</p>
         
+        <ul class="hero-list" style="display: inline-block; text-align: left; margin-bottom: 2.5rem;">
+            <li>Real-time BTC movement at a glance</li>
+            <li>No apps. No noise. No distractions</li>
+            <li>Precision laser-cut composite structure with matte industrial finish</li>
+        </ul>
+
         <span class="hero-price">From 750 USDT • worldwide shipping included</span>
 
         <div class="variant-selector" id="hero-variant-selector">
@@ -752,15 +832,60 @@
             <div class="variant-opt" data-value="Gold Edition">Gold Edition</div>
         </div>
         
-        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+        <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
             <button class="btn btn-primary" onclick="scrollToOrder()">Order Now</button>
-            <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">View Demo</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Watch It Live</button>
         </div>
 
         <img src="media/hero-bitcoin-panel-black.jpg" alt="Bitcoin Indicator Panel on wall" class="hero-img">
     </section>
 
-    <!-- MADE FOR PEOPLE (RESTORED) -->
+    <!-- LIVE REACTION -->
+    <section id="demo" style="background: #0a0a0a;">
+        <div class="container text-center">
+            <h2>Live Reaction to Bitcoin Price Movement</h2>
+            <div class="demo-content">
+                <p class="subhead">Real-Time. No Delay.</p>
+                <video class="demo-media" autoplay loop muted playsinline poster="media/poster_reaction.png">
+                    <source src="media/live_reaction.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION -->
+    <section id="problem-solution" class="container text-center">
+        <h2>Stop Checking Charts<br>Every 5 Minutes.</h2>
+        <p class="subhead">You don’t need another trading tab open. You need instant awareness.<br><br>This panel reacts to Bitcoin price action in real time, so you always know what’s happening — without staring at screens.</p>
+        <button class="btn btn-primary" onclick="scrollToOrder()">Get Your Panel</button>
+    </section>
+
+    <!-- COMPARISON -->
+    <section id="comparison" class="container">
+        <h2 class="text-center">Why Not Just Use an App?</h2>
+        <div class="comparison-grid">
+            <div class="comp-col">
+                <div class="comp-head">Mobile Apps</div>
+                <ul class="comp-list bad">
+                    <li>Requires constant checking</li>
+                    <li>Screen fatigue</li>
+                    <li>No physical presence</li>
+                </ul>
+            </div>
+            <div class="comp-col" style="border-color: #333; background: #111;">
+                <div class="comp-head" style="color: #fff;">Bitcoin Indicator Panel</div>
+                <ul class="comp-list good">
+                    <li>Passive real-time awareness</li>
+                    <li>No distraction</li>
+                    <li>Premium physical object</li>
+                    <li>Works 24/7 in your space</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- MADE FOR PEOPLE -->
     <section class="container text-center">
         <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Made For People Who<br>Live In The Market</h2>
         
@@ -786,42 +911,6 @@
         <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #444; margin-top: 2rem;">Built in small batches for traders, founders, and crypto-native teams.</p>
     </section>
 
-    <!-- DEMO -->
-    <section id="demo" style="background: #0a0a0a;">
-        <div class="container text-center">
-            <h2>Live Reaction</h2>
-            <div class="demo-content">
-                <p class="subhead">No screens. No noise. Pure signal. The panel breathes with the market, shifting as BTC moves.<br><br>Color dynamics and update frequency are fully synced with your chosen timeframe and custom parameters.</p>
-                <video class="demo-media" autoplay loop muted playsinline poster="media/poster_reaction.png">
-                    <source src="media/live_reaction.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </section>
-
-    <!-- SETUP -->
-    <section id="how-it-works" class="container">
-        <h2>Process</h2>
-        <div class="how-grid">
-            <div class="how-step">
-                <span class="step-num">01 / POWER</span>
-                <h3>Initialize</h3>
-                <p>Mount the panel. Plug into any standard outlet (110V/220V). It initializes automatically.</p>
-            </div>
-            <div class="how-step">
-                <span class="step-num">02 / CONNECT</span>
-                <h3>Network</h3>
-                <p>Join the "BTC-PANEL" Wi-Fi network to configure connectivity. Select the timeframe and parameters.</p>
-            </div>
-            <div class="how-step">
-                <span class="step-num">03 / SYNC</span>
-                <h3>Live</h3>
-                <p>Once connected, the panel keeps in sync with the BTC/USDT price feed in near real time.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- FEATURES -->
     <section id="features" class="container">
         <div class="feature-split">
@@ -845,13 +934,17 @@
     <!-- SPECS -->
     <section id="specs" class="container">
         <h2>Specifications</h2>
+        <div class="text-center" style="margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+            <p>Precision laser-cut composite panel with matte industrial finish. Built in limited production batches.</p>
+        </div>
+
         <div class="carousel-wrapper">
             <div class="carousel" id="tech-carousel">
                 <div class="carousel-track">
                     <img src="media/spec-diameter-gold.jpg" class="carousel-slide" alt="Gold Edition diameter scale">
-                    <img src="media/spec-diameter.jpg" class="carousel-slide" alt="100cm diameter scale of the panel">
+                    <img src="media/spec-diameter.jpg" class="carousel-slide" alt="100cm diameter scale of the panels">
                     <img src="media/spec-led.jpg" class="carousel-slide" alt="High-density LED backlight detail">
-                    <img src="media/spec-profile.jpg" class="carousel-slide" alt="Slim side profile of the panel">
+                    <img src="media/spec-profile.jpg" class="carousel-slide" alt="Slim side profile of the panels">
                     <img src="media/spec-board.jpg" class="carousel-slide" alt="Internal logic board and wiring">
                 </div>
                 <div class="carousel-nav">
@@ -865,7 +958,7 @@
         </div>
     </section>
 
-    <!-- ENGINEERING & ASSURANCE (UNIFIED COLUMNS) -->
+    <!-- ENGINEERING & ASSURANCE -->
     <section class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
        <h2 style="margin-bottom: 3rem;">Engineering & Assurance</h2>
        
@@ -894,6 +987,8 @@
             <div class="assurance-card">
                 <div class="assurance-head" style="color: var(--accent-white);">Warranty</div>
                 <div class="assurance-list warranty-highlight">
+                    <strong>30-Day Risk-Free Guarantee</strong>
+                    <div style="color: #888; font-size: 0.9rem; margin-top: 0.2rem; margin-bottom: 1rem;">Try it risk-free. Return within 30 days for a full refund.</div>
                     <div style="color: #888; font-size: 0.9rem;">Included with every unit:</div>
                     <strong>12 Months Structural</strong>
                     <div style="height: 0.5rem;"></div>
@@ -907,50 +1002,38 @@
     <section class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
         <h2 style="margin-bottom: 3rem;">In The Box</h2>
         <div class="box-grid">
-            <div class="box-item">
-                <span class="box-text">Bitcoin Indicator<br>Panel</span>
-            </div>
-            <div class="box-item">
-                <span class="box-text">Wall Mount<br>Bracket</span>
-            </div>
-            <div class="box-item">
-                <span class="box-text">Global Power<br>Unit</span>
-            </div>
-            <div class="box-item">
-                <span class="box-text">Quick-Connect<br>Guide</span>
-            </div>
+            <div class="box-item"><span class="box-text">Bitcoin Indicator<br>Panel</span></div>
+            <div class="box-item"><span class="box-text">Wall Mount<br>Bracket</span></div>
+            <div class="box-item"><span class="box-text">Global Power<br>Unit</span></div>
+            <div class="box-item"><span class="box-text">Quick-Connect<br>Guide</span></div>
         </div>
     </section>
 
-    <!-- JOIN COMMUNITY -->
-    <section class="container" style="padding: 6rem 0;">
-        <div style="background: var(--bg-surface); border: var(--border-thin); padding: 4rem 2rem; text-align: center;">
-            <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Join The Community</h2>
-            <p style="max-width: 600px; margin: 0 auto 2.5rem auto; color: var(--text-muted); font-size: 1rem;">
-                We are excited to welcome you to our Reddit community. Watch the production process—from engineering to assembly—and join the discussion.
-            </p>
-            <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-primary" style="padding: 1rem 2rem;">
-                Visit r/BTCindicatorpanel
-            </a>
-        </div>
-    </section>
-
-    <!-- ORDER -->
+    <!-- ORDER WIZARD -->
     <section id="order" class="order-section">
         <div class="container">
-            <h2 style="margin-bottom: 2rem;">Acquisition</h2>
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 0.5rem;">Acquisition</h2>
+                <p style="font-size: 0.8rem; letter-spacing: 1px; color: var(--success); text-transform: uppercase; font-weight: 600;">Limited batch production. Hand-assembled device.</p>
+            </div>
             
             <div class="order-container">
-                
-                <div class="crypto-notice">
-                    Payment in USDT, BTC, ETH, or USDC via Plisio. No card payments.
-                </div>
+                <form id="orderForm" novalidate>
+                    <!-- PROGRESS BAR -->
+                    <div class="wizard-progress">
+                        <div class="progress-header">
+                            <span id="step-label">Step 1 / 3 — Configuration</span>
+                            <span id="step-pct">33%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
 
-                <form id="orderForm">
-                    <div class="form-group">
-                        <label>Select Allocation</label>
+                    <!-- STEP 1: CONFIGURATION -->
+                    <div class="wizard-step active" id="step-1">
                         <div class="cart-section">
-                            <!-- Black Edition 50cm -->
+                            <!-- Black 50 -->
                             <div class="cart-item">
                                 <div class="item-info">
                                     <span class="item-name">Black Edition <span class="item-sub">50 CM</span></span>
@@ -962,7 +1045,7 @@
                                     <button type="button" class="qty-btn" onclick="updateItemQty('black_50', 1)">+</button>
                                 </div>
                             </div>
-                            <!-- Black Edition 80cm -->
+                            <!-- Black 80 -->
                             <div class="cart-item">
                                 <div class="item-info">
                                     <span class="item-name">Black Edition <span class="item-sub">80 CM</span></span>
@@ -974,8 +1057,7 @@
                                     <button type="button" class="qty-btn" onclick="updateItemQty('black_80', 1)">+</button>
                                 </div>
                             </div>
-
-                            <!-- Gold Edition 50cm -->
+                            <!-- Gold 50 -->
                             <div class="cart-item">
                                 <div class="item-info">
                                     <span class="item-name">Gold Edition <span class="item-sub">50 CM</span></span>
@@ -987,8 +1069,8 @@
                                     <button type="button" class="qty-btn" onclick="updateItemQty('gold_50', 1)">+</button>
                                 </div>
                             </div>
-                             <!-- Gold Edition 80cm -->
-                             <div class="cart-item">
+                            <!-- Gold 80 -->
+                            <div class="cart-item">
                                 <div class="item-info">
                                     <span class="item-name">Gold Edition <span class="item-sub">80 CM</span></span>
                                     <span class="item-price">1350 USDT</span>
@@ -1000,73 +1082,120 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Full Name">
+                        
+                        <div class="live-total-bar">
+                            <span class="live-total-label">Subtotal</span>
+                            <span id="step1-total">0.00 USDT</span>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="name@domain.com">
+
+                        <div class="wizard-footer">
+                            <button type="button" class="btn btn-primary" style="width: 100%;" id="btn-to-step2" onclick="nextStep()" disabled>Continue</button>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
-                    </div>
+                    <!-- STEP 2: SHIPPING -->
+                    <div class="wizard-step" id="step-2">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required placeholder="Full Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <input type="text" id="country" name="country" required>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="address_line1">Address</label>
-                        <input type="text" id="address_line1" name="address_line1" required placeholder="Street Address">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="address_line2">Unit / Apt</label>
-                        <input type="text" id="address_line2" name="address_line2" placeholder="Optional">
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zip">Postal Code</label>
+                                <input type="text" id="zip" name="zip" required>
+                            </div>
+                        </div>
 
-                    <div class="form-row">
                         <div class="form-group">
-                            <label for="city">City</label>
-                            <input type="text" id="city" name="city" required>
+                            <label for="address_line1">Street Address</label>
+                            <input type="text" id="address_line1" name="address_line1" required placeholder="Street Address">
                         </div>
                         <div class="form-group">
+                            <label for="address_line2">Unit / Apt (Optional)</label>
+                            <input type="text" id="address_line2" name="address_line2">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8900">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required placeholder="name@domain.com">
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden inputs maintained for compatibility if needed, though we use ID selectors -->
+                        <div class="form-group" style="display:none;">
                             <label for="state">State / Region</label>
                             <input type="text" id="state" name="state" placeholder="Optional">
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="zip">Postal Code</label>
-                            <input type="text" id="zip" name="zip" required>
+                        <div class="live-total-bar">
+                            <span class="live-total-label">Subtotal</span>
+                            <span id="step2-total">0.00 USDT</span>
                         </div>
-                        <div class="form-group">
-                            <label for="country">Country</label>
-                            <input type="text" id="country" name="country" required>
+
+                        <div class="wizard-footer">
+                            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="nextStep()">Continue</button>
+                            <button type="button" class="btn btn-secondary" style="width: 100%; border: none; font-size: 0.8rem;" onclick="prevStep()">Back</button>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="promo">Access Code</label>
-                        <input type="text" id="promo" name="promo" placeholder="Enter Promo">
+                    <!-- STEP 3: REVIEW & PAY -->
+                    <div class="wizard-step" id="step-3">
+                        <div class="summary-box">
+                            <div id="summary-items"></div>
+                            <div class="summary-line" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #333;">
+                                <span>Subtotal</span>
+                                <span id="summary-subtotal">0.00 USDT</span>
+                            </div>
+                            <div class="summary-line">
+                                <span>Shipping</span>
+                                <span>Included</span>
+                            </div>
+                            <div class="form-group" style="margin-top: 1.5rem;">
+                                <label for="promo">Promo Code</label>
+                                <input type="text" id="promo" name="promo" placeholder="Enter Code">
+                            </div>
+                            <div class="summary-line highlight">
+                                <span>Total</span>
+                                <span id="finalPrice">0.00 USDT</span>
+                            </div>
+
+                            <div class="shipping-preview" id="shipping-preview"></div>
+                            
+                            <div class="form-group" style="margin-top: 1rem;">
+                                <label for="note">Order Notes (Optional)</label>
+                                <textarea id="note" name="note" rows="2" placeholder="Special delivery instructions"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="wizard-footer">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm & Pay</button>
+                            <button type="button" class="btn btn-secondary" style="width: 100%; border: none; font-size: 0.8rem;" onclick="prevStep()">Back</button>
+                        </div>
+                        
+                        <div class="terms-check">
+                            <p>✔ Secure crypto checkout</p>
+                            <p>✔ Worldwide tracked shipping</p>
+                            <p>✔ Limited batch assembly</p>
+                            <p style="margin-top: 1rem; color: #444;">By clicking Confirm & Pay, you agree to our Terms & Privacy Policy.</p>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="note">Notes</label>
-                        <textarea id="note" name="note" rows="2" placeholder="Special delivery instructions"></textarea>
-                    </div>
-
-                    <div class="total-display">
-                        <span class="total-label">Estimated Total</span>
-                        <span id="finalPrice">0.00 USDT</span>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Proceed to Crypto Payment</button>
-                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.7rem; color: #444;">SECURED BY PLISIO</p>
                 </form>
             </div>
         </div>
@@ -1076,7 +1205,7 @@
     <section id="faq" class="container">
         <h2>Q&A</h2>
         <div class="faq-grid">
-            <div class="faq-item">
+             <div class="faq-item">
                 <div class="faq-q">Payment Methods</div>
                 <p>We accept USDT (TRC20/ERC20), Bitcoin, Ethereum, and USDC via Plisio. All transactions are secure and automated. No card payments.</p>
             </div>
@@ -1087,6 +1216,22 @@
             <div class="faq-item">
                 <div class="faq-q">Shipping</div>
                 <p>Worldwide shipping is included in the price. There are no hidden fees at checkout.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">How accurate is the data?</div>
+                <p>The panel connects via Wi-Fi to our low-latency price servers. It updates in near real-time, syncing seamlessly with market movements.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What happens if Wi-Fi disconnects?</div>
+                <p>The panel will pulse a soft white light to indicate connection loss. Once Wi-Fi is restored, it automatically resumes normal operation.</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Do you ship internationally?</div>
+                <p>Yes, we ship globally. The device comes with a universal power adapter suitable for all regions (110V-240V).</p>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Is this suitable as a gift?</div>
+                <p>Absolutely. It comes in premium packaging with a quick-start guide, making it a perfect gift for traders and crypto enthusiasts.</p>
             </div>
         </div>
     </section>
@@ -1105,6 +1250,19 @@
         <p>
             If you have questions — write us at <a href="mailto:studio@lukostudio.shop" style="color: #fff; text-decoration: none;">studio@lukostudio.shop</a>
         </p>
+    </section>
+
+    <!-- COMMUNITY (Bottom) -->
+     <section class="container" style="padding: 2rem 0; border-top: var(--border-thin);">
+        <div style="text-align: center;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Join The Community</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+                Watch the production process and join the discussion.
+            </p>
+            <a href="https://www.reddit.com/user/BTCindicatorpanel/" target="_blank" class="btn btn-secondary" style="padding: 0.8rem 1.5rem;">
+                Join r/BTCindicatorpanel
+            </a>
+        </div>
     </section>
 
     <footer>
@@ -1140,120 +1298,91 @@
         const PREVIEW_URL = '/api/preview-total';
         const CREATE_INVOICE_URL = '/api/create-invoice';
 
-        // --- SCROLL HELPER ---
-        function scrollToOrder() {
-            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-        }
+        // --- WIZARD LOGIC ---
+        let currentStep = 1;
+        const totalSteps = 3;
 
-        // --- URL PARAM CHECK (Success/Fail) ---
-        function checkUrlStatus() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const status = urlParams.get('status');
-            const modal = document.getElementById('status-modal');
-            const title = document.getElementById('modal-title');
-            const text = document.getElementById('modal-text');
+        function updateWizardUI() {
+            // Hide all steps
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+            // Show current
+            document.getElementById(`step-${currentStep}`).classList.add('active');
 
-            if (status === 'success') {
-                modal.style.display = 'flex';
-                title.textContent = 'Order Confirmed';
-                title.style.color = 'var(--success)';
-                text.textContent = 'Thank you. Your payment has been detected. We will begin production immediately. Please check your email for confirmation.';
-                
-                // Reset cart visuals
-                document.getElementById('qty_black_50').value = 0;
-                document.getElementById('qty_black_80').value = 0;
-                document.getElementById('qty_gold_50').value = 0;
-                document.getElementById('qty_gold_80').value = 0;
-                renderEmptyState(); 
-            } else if (status === 'fail') {
-                modal.style.display = 'flex';
-                title.textContent = 'Payment Failed';
-                title.style.color = 'var(--error)';
-                text.textContent = 'The payment process was cancelled or failed. Your order has not been finalized. Please try again.';
-                
-                // Scroll to order form to try again
-                scrollToOrder();
+            // Update Progress
+            const pct = Math.round((currentStep / totalSteps) * 100);
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+            document.getElementById('step-pct').textContent = `${pct}%`;
+
+            // Update Label
+            const labels = ["Configuration", "Shipping Details", "Confirm & Pay"];
+            document.getElementById('step-label').textContent = `Step ${currentStep} / 3 — ${labels[currentStep - 1]}`;
+
+            // Update Subtotal on Step 1 & 2
+            if (currentStep < 3) {
+                 updateLiveSubtotal();
+            }
+
+            // If Step 3, Populate Summary
+            if (currentStep === 3) {
+                populateSummary();
+                fetchPreview(); // Do a price check with promo
             }
         }
 
-        function closeModal() {
-            document.getElementById('status-modal').style.display = 'none';
-            // Clear URL params
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-
-        // --- INPUT MASKS ---
-        const phoneInput = document.getElementById('phone');
-        const zipInput = document.getElementById('zip');
-
-        // Phone Mask logic
-        phoneInput.addEventListener('focus', () => {
-            if (phoneInput.value === '') phoneInput.value = '+';
-        });
-
-        phoneInput.addEventListener('blur', () => {
-            if (phoneInput.value === '+') phoneInput.value = '';
-        });
-
-        phoneInput.addEventListener('input', () => {
-            let val = phoneInput.value;
-            // Always ensure it starts with +
-            if (!val.startsWith('+')) {
-                val = '+' + val;
+        function validateStep(step) {
+            if (step === 1) {
+                const qty = getTotalQuantity();
+                return qty > 0;
             }
-            
-            // Allow + at index 0, then digits (0-9) and spaces (\s) only
-            // Filter all characters
-            const filtered = val.split('').filter((char, index) => {
-                if (index === 0) return char === '+';
-                return /[0-9\s]/.test(char);
-            });
-            
-            const newVal = filtered.join('');
-            if (phoneInput.value !== newVal) {
-                phoneInput.value = newVal;
-            }
-        });
-
-        // Zip Mask logic
-        zipInput.addEventListener('input', () => {
-             zipInput.value = zipInput.value.replace(/[^0-9\s]/g, '');
-        });
-
-        window.addEventListener('load', () => {
-            checkUrlStatus();
-            // Initial render 
-            if (getTotalQuantity() > 0) {
-                fetchPreview();
-            } else {
-                renderEmptyState();
-            }
-        });
-
-        // HERO VARIANT UI (IMAGE & TEXT SWITCHER)
-        document.querySelectorAll('.variant-opt').forEach(opt => {
-            opt.addEventListener('click', function() {
-                document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-
-                const val = this.getAttribute('data-value');
-                const priceEl = document.querySelector('.hero-price');
-                const heroImg = document.querySelector('.hero-img');
-
-                if (val === 'Black Edition') {
-                    priceEl.textContent = 'From 750 USDT • worldwide shipping included';
-                    heroImg.src = 'media/hero-bitcoin-panel-black.jpg';
-                } else if (val === 'Gold Edition') {
-                    priceEl.textContent = 'From 950 USDT • worldwide shipping included';
-                    heroImg.src = 'media/hero-bitcoin-panel-gold.jpg';
+            if (step === 2) {
+                const reqIds = ['name', 'country', 'city', 'zip', 'address_line1', 'phone', 'email'];
+                let valid = true;
+                reqIds.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (!el.value.trim()) {
+                        el.style.borderBottomColor = 'var(--error)';
+                        valid = false;
+                    } else {
+                        el.style.borderBottomColor = '#333';
+                    }
+                });
+                // Basic Email regex
+                const email = document.getElementById('email').value;
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('email').style.borderBottomColor = 'var(--error)';
+                    valid = false;
                 }
-            });
-        });
+                return valid;
+            }
+            return true;
+        }
 
-        // --- SERVER-SIDE PRICING LOGIC ---
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateWizardUI();
+                    window.scrollTo({ top: document.getElementById('order').offsetTop, behavior: 'smooth' });
+                }
+            } else {
+                // If step 1 invalid (no items)
+                if (currentStep === 1) {
+                    alert("Please select at least one item to continue.");
+                } else {
+                    alert("Please fill in all required fields.");
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateWizardUI();
+            }
+        }
+
+        // --- PRICING & DATA LOGIC ---
         
-        let debounceTimer;
-
         function getTotalQuantity() {
             const qB50 = parseInt(document.getElementById('qty_black_50').value) || 0;
             const qB80 = parseInt(document.getElementById('qty_black_80').value) || 0;
@@ -1269,12 +1398,47 @@
             const qG80 = parseInt(document.getElementById('qty_gold_80').value) || 0;
             
             const items = [];
-            if (qB50 > 0) items.push({ variant: 'Black Edition 50cm', quantity: qB50 });
-            if (qB80 > 0) items.push({ variant: 'Black Edition 80cm', quantity: qB80 });
-            if (qG50 > 0) items.push({ variant: 'Gold Edition 50cm', quantity: qG50 });
-            if (qG80 > 0) items.push({ variant: 'Gold Edition 80cm', quantity: qG80 });
+            if (qB50 > 0) items.push({ variant: 'Black Edition 50cm', quantity: qB50, price: 750 });
+            if (qB80 > 0) items.push({ variant: 'Black Edition 80cm', quantity: qB80, price: 1150 });
+            if (qG50 > 0) items.push({ variant: 'Gold Edition 50cm', quantity: qG50, price: 950 });
+            if (qG80 > 0) items.push({ variant: 'Gold Edition 80cm', quantity: qG80, price: 1350 });
             
             return items;
+        }
+
+        function updateLiveSubtotal() {
+            const items = getItemsFromDOM();
+            let total = 0;
+            items.forEach(i => total += (i.price * i.quantity));
+            const txt = total.toFixed(2) + " USDT";
+            document.getElementById('step1-total').textContent = txt;
+            document.getElementById('step2-total').textContent = txt;
+            
+            // Enable/Disable Step 1 Button
+            const btn = document.getElementById('btn-to-step2');
+            btn.disabled = items.length === 0;
+        }
+
+        function populateSummary() {
+            const items = getItemsFromDOM();
+            const container = document.getElementById('summary-items');
+            container.innerHTML = '';
+            
+            let subtotal = 0;
+            items.forEach(i => {
+                subtotal += (i.price * i.quantity);
+                const div = document.createElement('div');
+                div.className = 'summary-line';
+                div.innerHTML = `<span>${i.quantity}x ${i.variant}</span><span>${(i.price * i.quantity).toFixed(2)}</span>`;
+                container.appendChild(div);
+            });
+            document.getElementById('summary-subtotal').textContent = subtotal.toFixed(2) + " USDT";
+
+            // Shipping Preview
+            const name = document.getElementById('name').value;
+            const city = document.getElementById('city').value;
+            const country = document.getElementById('country').value;
+            document.getElementById('shipping-preview').textContent = `Ship to: ${name} • ${city}, ${country}`;
         }
 
         function updateItemQty(id, delta) {
@@ -1285,37 +1449,22 @@
             if (val > 10) val = 10;
             el.value = val;
             
-            // Immediate trigger (no debounce on clicks)
-            if (getTotalQuantity() === 0) {
-                renderEmptyState();
-            } else {
-                fetchPreview();
-            }
+            updateLiveSubtotal();
         }
 
-        // Rule A: Empty Cart State (Frontend Only)
-        function renderEmptyState() {
-            const totalEl = document.getElementById('finalPrice');
-            const promoVal = document.getElementById('promo').value.trim();
-            
-            let msg = '';
-            // Rule A3: Neutral helper message if text exists
-            if (promoVal.length > 0) {
-                 msg = '<div style="font-size:0.8rem; color:#888; margin-top:0.3rem;">Add items to apply a code.</div>';
-            }
-            
-            // Rule A1: Always 0.00
-            totalEl.innerHTML = `0.00 USDT${msg}`;
-        }
+        // --- PROMO CODE LOGIC ---
+        let debounceTimer;
+        // Promo Input Listener (Only exists in Step 3 now)
+        document.getElementById('promo').addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            // Debounce 700ms
+            debounceTimer = setTimeout(fetchPreview, 700);
+        });
 
         async function fetchPreview() {
-            // Guard: If empty, do not call worker (Rule A4)
-            if (getTotalQuantity() === 0) {
-                renderEmptyState();
-                return;
-            }
-
             const items = getItemsFromDOM();
+            if (items.length === 0) return;
+
             const promo = document.getElementById('promo').value.trim();
             const totalEl = document.getElementById('finalPrice');
 
@@ -1330,32 +1479,98 @@
                     const data = await response.json();
                     
                     let discountHtml = '';
-                    
-                    // Rule: INVALID PROMO only if promo entered AND valid === false
                     if (data.discount_applied) {
-                        discountHtml = '<div style="font-size:0.8rem; color:var(--success); margin-top:0.3rem;">PROMO APPLIED</div>';
+                        discountHtml = '<div style="font-size:0.7rem; color:var(--success); text-align:right;">PROMO APPLIED</div>';
                     } else if (promo.length > 0 && data.valid === false) {
-                        discountHtml = '<div style="font-size:0.8rem; color:var(--error); margin-top:0.3rem;">INVALID PROMO</div>';
+                        discountHtml = '<div style="font-size:0.7rem; color:var(--error); text-align:right;">INVALID CODE</div>';
                     } 
                     
-                    totalEl.innerHTML = `${data.final_amount.toFixed(2)} USDT${discountHtml}`;
+                    totalEl.innerHTML = `<div>${data.final_amount.toFixed(2)} USDT</div>${discountHtml}`;
                 }
             } catch (e) {
                 console.error("Pricing preview failed", e);
             }
         }
 
-        // Promo Input Listener
-        document.getElementById('promo').addEventListener('input', () => {
-            clearTimeout(debounceTimer);
-            
-            if (getTotalQuantity() === 0) {
-                // Rule A: Immediate local update for empty cart (to show/hide helper msg)
-                renderEmptyState();
-            } else {
-                // Rule B: Debounce 700ms for active cart
-                debounceTimer = setTimeout(fetchPreview, 700);
+
+        // --- URL PARAM CHECK (Success/Fail) ---
+        function checkUrlStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const modal = document.getElementById('status-modal');
+            const title = document.getElementById('modal-title');
+            const text = document.getElementById('modal-text');
+
+            if (status === 'success') {
+                modal.style.display = 'flex';
+                title.textContent = 'Order Confirmed';
+                title.style.color = 'var(--success)';
+                text.textContent = 'Thank you. Your payment has been detected. We will begin production immediately. Please check your email for confirmation.';
+                
+                // Reset form
+                document.getElementById('orderForm').reset();
+                currentStep = 1;
+                updateWizardUI();
+            } else if (status === 'fail') {
+                modal.style.display = 'flex';
+                title.textContent = 'Payment Failed';
+                title.style.color = 'var(--error)';
+                text.textContent = 'The payment process was cancelled or failed. Your order has not been finalized. Please try again.';
+                scrollToOrder();
             }
+        }
+
+        function closeModal() {
+            document.getElementById('status-modal').style.display = 'none';
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        function scrollToOrder() {
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- INPUT MASKS ---
+        const phoneInput = document.getElementById('phone');
+        const zipInput = document.getElementById('zip');
+
+        phoneInput.addEventListener('focus', () => { if (phoneInput.value === '') phoneInput.value = '+'; });
+        phoneInput.addEventListener('blur', () => { if (phoneInput.value === '+') phoneInput.value = ''; });
+        phoneInput.addEventListener('input', () => {
+            let val = phoneInput.value;
+            if (!val.startsWith('+')) val = '+' + val;
+            const filtered = val.split('').filter((char, index) => {
+                if (index === 0) return char === '+';
+                return /[0-9\s]/.test(char);
+            });
+            const newVal = filtered.join('');
+            if (phoneInput.value !== newVal) phoneInput.value = newVal;
+        });
+        zipInput.addEventListener('input', () => {
+             zipInput.value = zipInput.value.replace(/[^0-9\s]/g, '');
+        });
+
+        // --- INIT ---
+        window.addEventListener('load', () => {
+            checkUrlStatus();
+            updateWizardUI(); // Init wizard
+        });
+
+        // HERO VARIANT UI
+        document.querySelectorAll('.variant-opt').forEach(opt => {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('.variant-opt').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                const val = this.getAttribute('data-value');
+                const priceEl = document.querySelector('.hero-price');
+                const heroImg = document.querySelector('.hero-img');
+                if (val === 'Black Edition') {
+                    priceEl.textContent = 'From 750 USDT • worldwide shipping included';
+                    heroImg.src = 'media/hero-bitcoin-panel-black.jpg';
+                } else if (val === 'Gold Edition') {
+                    priceEl.textContent = 'From 950 USDT • worldwide shipping included';
+                    heroImg.src = 'media/hero-bitcoin-panel-gold.jpg';
+                }
+            });
         });
 
         // CAROUSEL
@@ -1371,28 +1586,18 @@
             track.style.transform = 'translateX(-' + (index * 100) + '%)';
             currentSlide = index;
         }
-
         nextBtn.addEventListener('click', () => moveToSlide(currentSlide + 1));
         prevBtn.addEventListener('click', () => moveToSlide(currentSlide - 1));
-        
         let touchStartX = 0;
         let touchEndX = 0;
-
-        track.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-
-        track.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, {passive: true});
-
+        track.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        track.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipe(); }, {passive: true});
         function handleSwipe() {
             if (touchStartX - touchEndX > 50) moveToSlide(currentSlide + 1);
             if (touchEndX - touchStartX > 50) moveToSlide(currentSlide - 1);
         }
 
-        // FORM SUBMIT
+        // --- FORM SUBMISSION ---
         document.getElementById('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -1400,11 +1605,7 @@
             const submitBtn = e.target.querySelector('button[type="submit"]');
             
             const items = getItemsFromDOM();
-
-            if (items.length === 0) {
-                alert("Please select at least one item.");
-                return;
-            }
+            if (items.length === 0) { alert("Cart is empty"); return; }
 
             overlay.style.display = 'flex';
             submitBtn.disabled = true;
@@ -1412,13 +1613,13 @@
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value.replace(/\D/g, ''), // CLEANED: Only digits
-                items: items, // Sending items, not total
+                phone: document.getElementById('phone').value.replace(/\D/g, ''),
+                items: items, 
                 address: {
                     line1: document.getElementById('address_line1').value,
                     line2: document.getElementById('address_line2').value,
                     city: document.getElementById('city').value,
-                    state: document.getElementById('state').value,
+                    state: document.getElementById('state') ? document.getElementById('state').value : '',
                     zip: document.getElementById('zip').value,
                     country: document.getElementById('country').value
                 },
@@ -1435,10 +1636,7 @@
 
                 if (!response.ok) {
                     let errorMsg = 'Server error';
-                    try {
-                        const errorData = await response.json();
-                        if (errorData && errorData.error) errorMsg = errorData.error;
-                    } catch (_) {}
+                    try { const errorData = await response.json(); if (errorData && errorData.error) errorMsg = errorData.error; } catch (_) {}
                     throw new Error(errorMsg);
                 }
 
